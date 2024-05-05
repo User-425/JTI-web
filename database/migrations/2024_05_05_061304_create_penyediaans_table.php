@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('penyediaans', function (Blueprint $table) {
             $table->id();
+            $table->string('id_penyediaan',10)->unique();
+            $table->timestamp('waktu');
+            $table->string('id_pemasok',10);
             $table->timestamps();
         });
     }
