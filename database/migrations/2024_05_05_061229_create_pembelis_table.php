@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('pembelis', function (Blueprint $table) {
             $table->id();
+            $table->string('id_pembeli', 10)->unique();
+            $table->text('nama');
             $table->timestamps();
         });
     }
