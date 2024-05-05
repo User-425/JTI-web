@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('nama',50);
             $table->integer('harga');
             $table->integer('stok');
-            $table->string('id_penyediaan'10);
+            $table->string('id_penyediaan', 10);
             $table->timestamps();
         });
     }

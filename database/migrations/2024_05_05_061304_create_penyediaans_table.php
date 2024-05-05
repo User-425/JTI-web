@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('id_penyediaan',10)->unique();
             $table->timestamp('waktu');
             $table->string('id_pemasok',10);
+            $table->string('id_pegawai',10);
             $table->timestamps();
         });
     }

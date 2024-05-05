@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Pegawai extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'id', 'id_pegawai', 'nama', 'no_telp', 'alamat'
+    ];
+
+    public function transaksis()
+    {
+        return $this->hasMany(Transaksi::class);
+    }
 }
