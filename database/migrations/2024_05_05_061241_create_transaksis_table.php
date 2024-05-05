@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('transaksis', function (Blueprint $table) {
             $table->id();
+            $table->String('id_transaksi', 10) -> unique;
+            $table->enum('jenis', ['Tunai', 'Non-Tunai'])-> default ('tunai');
+            $table->timestamp('waktu');
+            $table->String('id_pegawai', 10);
+            $table->String('id_pembeli', 10);
+            $table->String('id_produk', 10);
             $table->timestamps();
         });
     }
