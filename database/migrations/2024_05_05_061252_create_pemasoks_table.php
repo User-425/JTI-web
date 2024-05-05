@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('pemasoks', function (Blueprint $table) {
             $table->id();
+            $table->string('id_pemasok')->unique(); 
+            $table->string('nama',50);
+            $table->string('no_telp',12);   
+            $table->string('alamat',30);
             $table->timestamps();
         });
     }
