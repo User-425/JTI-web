@@ -14,6 +14,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+
+        $this->call(DatabaseSeeder2::class);
         $this->call(DatabaseSeeder3::class);
 
         DB::table('users')->insert([
