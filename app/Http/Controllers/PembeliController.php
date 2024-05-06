@@ -12,7 +12,7 @@ class PembeliController extends Controller
      */
     public function index()
     {
-        return view('pembeli.dashboard');
+        return view('pages.pegawai.home');
     }
 
     /**

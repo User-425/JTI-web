@@ -17,6 +17,10 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
+Route::get('/home', function () {
+    return route('auth.login');
+});
+
 // Route::get('/login', function () {
 //     return view('layouts.login');
 // });
@@ -30,5 +34,5 @@ Route::middleware(['auth', 'role:Pegawai'])->group(function () {
 });
 
 Route::middleware(['auth', 'role:Pembeli'])->group(function () {
-    Route::get('/pembeli/dashboard', 'PembeliController@index');
+    Route::get('/pembeli/dashboard', 'PembeliController@index')->name('pembeli.dashboard');;
 });

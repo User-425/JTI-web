@@ -22,7 +22,7 @@ class RedirectBasedOnRole
             }
             
             if(auth()->user()->role === 'Pembeli') {
-                return response()->view('teacherDashboard');
+                return response()->view('pages/pembeli/home');
             }
         }
         
