@@ -14,9 +14,21 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
-Route::get('/login', function () {
-    return view('layouts.login');
+// Route::get('/login', function () {
+//     return view('layouts.login');
+// });
+
+Auth::routes();
+
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::middleware(['auth', 'role:Pegawai'])->group(function () {
+    Route::get('/pegawai/dashboard', 'PegawaiController@index')->name('pegawai.dashboard');
+});
+
+Route::middleware(['auth', 'role:Pembeli'])->group(function () {
+    Route::get('/pembeli/dashboard', 'PembeliController@index');
 });
