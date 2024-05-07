@@ -41,18 +41,18 @@ class DatabaseSeeder extends Seeder
 
         DB::table('pembelis')->insert([
             'id_pembeli' => '0001',
-            'nama' => 'anfasa',
-            'id_user' => '1',
+            'nama' => 'Aakhif',
+            'id_user' => '2',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
 
         DB::table('pegawais')->insert([
-            'nama' => 'Akhif',
+            'nama' => 'Anfasa',
             'id_pegawai' => '0001',
             'no_telp' => '085706772202',
-            'alamat' => 'Lawang',
-            'id_user' => '2',
+            'alamat' => 'Gresik',
+            'id_user' => '1',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
