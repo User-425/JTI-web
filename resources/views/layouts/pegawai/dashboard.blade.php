@@ -12,6 +12,7 @@
     <title>@yield('title') - Kantin JTI</title>
 
     @include('include.header')
+    @yield('page_css')
 </head>
 
 <body id="page-top">
@@ -58,6 +59,7 @@
 
 
     @include('include.script')
+    @yield('page_script')
 
 </body>
 
