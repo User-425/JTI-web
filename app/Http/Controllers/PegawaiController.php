@@ -38,10 +38,10 @@ class PegawaiController extends Controller
     public function daftar_produk()
     {
         // Retrieve all products from the database
-        $produks = Produk::all();
+        $data = Produk::all();
     
         // Pass the products data to the view
-        return view('pages.pegawai.produk', ['produks' => $produks]);
+        return view('pages.pegawai.produk.show', ['data' => $data]);
     }
 
     /**

@@ -34,9 +34,10 @@ class ProdukController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Produk $produk)
+    public function show($id)
     {
-        //
+        $data = Produk::findOrFail($id);
+        return view('pages.pegawai.produk.edit', ['data' => $data]);
     }
 
     /**
@@ -58,8 +59,11 @@ class ProdukController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Produk $produk)
+    public function destroy($id)
     {
-        //
+        $Produk = Produk::find($id);
+        $Produk->delete();
+
+        return redirect('/pegawai/daftar_produk');
     }
 }

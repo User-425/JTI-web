@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\PembeliController;
+use App\Http\Controllers\ProdukController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +35,8 @@ Auth::routes();
 Route::middleware(['auth', 'role:Pegawai'])->group(function () {
     Route::get('/pegawai/dashboard', [PegawaiController::class, 'index'])->name('pegawai.dashboard');
     Route::get('/pegawai/daftar_produk', [PegawaiController::class, 'daftar_produk'])->name('pegawai.produk');
+    Route::get('/pegawai/produk/{id}', [ProdukController::class, 'show']);
+    Route::delete('/pegawai/produk/{id}', [ProdukController::class, 'destroy'])->name('produk.destroy');
 });
 
 
