@@ -1,4 +1,4 @@
-@extends('layouts.pegawai.dashboard')
+@extends('layouts.pembeli.dashboard')
 
 @section('title')
 Dashboard

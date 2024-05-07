@@ -1,7 +1,7 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
 <!-- Sidebar - Brand -->
-<a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+<a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
     <div class="sidebar-brand-icon rotate-n-15">
         <i class="fas fa-laugh-wink"></i>
     </div>
@@ -13,7 +13,7 @@
 
 <!-- Nav Item - Dashboard -->
 <li class="nav-item">
-    <a class="nav-link" href="index.html">
+    <a class="nav-link " href="{{ url('pegawai/dashboard ')}}">
         <i class="fas fa-solid fa-tachometer-alt"></i>
         <span>Dashboard</span></a>
 </li>
@@ -37,25 +37,25 @@
     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Jenis Transaksi:</h6>
-            <a class="collapse-item" href="buttons.html">Pembelian</a>
-            <a class="collapse-item" href="cards.html">Restock</a>
+            <a class="collapse-item" href="{{ url('pegawai/pembelian ')}}">Pembelian</a>
+            <a class="collapse-item" href="{{ url('pegawai/restock ')}}">Restock</a>
         </div>
     </div>
 </li>
 
 <li class="nav-item">
-    <a class="nav-link" href="charts.html">
+    <a class="nav-link " href="{{ url('pegawai/daftar_produk ')}}">
     <i class="fas fa-solid fa-list-ul"></i>
         <span>Daftar Produk</span></a>
 </li>
 
 <li class="nav-item">
-    <a class="nav-link" href="charts.html">
+    <a class="nav-link" href="{{ url('pegawai/kelola_pengguna ')}}">
     <i class="fas fa-solid fa-user-cog"></i>
         <span>Kelola Pengguna</span></a>
 </li>
 <li class="nav-item">
-    <a class="nav-link" href="charts.html">
+    <a class="nav-link" href="{{ url('pegawai/kelola_pemasok ')}}">
     <i class="fas fa-solid fa-wrench"></i>
         <span>Kelola Pemasok</span></a>
 </li>
@@ -67,13 +67,13 @@
 </div>
 
 <li class="nav-item">
-    <a class="nav-link" href="charts.html">
+    <a class="nav-link" href="{{ url('pegawai/transaksi/pembelian ')}}">
     <!-- <i class="fas fa-solid fa-hand-holding-usd"></i> -->
     <i class="fas fa-solid fa-file-invoice-dollar"></i>
         <span>Transaksi Pembelian</span></a>
 </li>
 <li class="nav-item">
-    <a class="nav-link" href="charts.html">
+    <a class="nav-link" href="{{ url('pegawai/transaksi/penyediaan ')}}">
     <!-- <i class="fas fa-solid fa-handshake"></i> -->
     <i class="fas fa-solid fa-receipt"></i>
         <span>Transaksi Penyediaan</span></a>
