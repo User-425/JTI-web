@@ -33,10 +33,15 @@ Auth::routes();
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::middleware(['auth', 'role:Pegawai'])->group(function () {
-    Route::get('/pegawai/dashboard', [PegawaiController::class, 'index'])->name('pegawai.dashboard');
-    Route::get('/pegawai/daftar_produk', [PegawaiController::class, 'daftar_produk'])->name('pegawai.produk');
-    Route::get('/pegawai/produk/{id}', [ProdukController::class, 'show']);
-    Route::delete('/pegawai/produk/{id}', [ProdukController::class, 'destroy'])->name('produk.destroy');
+    Route::get('/dashboard', [PegawaiController::class, 'index'])->name('pegawai.dashboard');
+    Route::get('/daftar_produk', [PegawaiController::class, 'daftar_produk'])->name('daftar_produk');
+
+    Route::get('/produk/tambah', [ProdukController::class, 'create'])->name('produk.create');
+    Route::get('/produk/{id}', [ProdukController::class, 'edit'])->name('produk.show');
+    Route::delete('/produk/{id}', [ProdukController::class, 'destroy'])->name('produk.destroy');
+    Route::patch('/produk/{id}', [ProdukController::class, 'update'])->name('produk.update');
+    Route::post('/produk', [ProdukController::class, 'store'])->name('produk.store');
+    
 });
 
 

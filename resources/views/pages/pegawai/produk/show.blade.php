@@ -21,16 +21,23 @@ Daftar Produk
 </p> -->
 
 <div class="card shadow mb-4">
-  <div class="card-header py-3">
+<div class="card-header py-3 d-flex justify-content-between align-items-center">
     <h6 class="m-0 font-weight-bold text-primary">Daftar Produk</h6>
-  </div>
+    <a href="{{route('produk.create')}}" class="btn btn-primary btn-icon-split btn-sm">
+        <span class="icon text-white-50">
+            <i class="fas fa-plus"></i>
+        </span>
+        <span class="text">Tambah Produk</span>
+    </a>
+</div>
+
   <div class="card-body">
     <div class="table-responsive">
       <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="text-align:center;">
         <thead>
           <tr>
             <th>No</th>
-            <th>ID_Produk</th>
+            <th>ID Produk</th>
             <th>Nama</th>
             <th>Harga</th>
             <th>Stok</th>
@@ -46,19 +53,18 @@ Daftar Produk
                 <td> {{ $produk->harga }}</td>
                 <td> {{ $produk->stok }}</td>
                 <td style="width:20%">
-                  <a href="#" class="btn btn-primary btn-icon-split btn-sm">
+                  <a href="{{ route('produk.show', $produk->id)}}" class="btn btn-primary btn-icon-split btn-sm">
                       <span class="icon text-white-50">
                           <i class="fas fa-pen"></i>
                       </span>
                       <span class="text">Edit</span>
                   </a>
                   <button type="button" class="btn btn-danger btn-icon-split btn-sm" data-toggle="modal" data-target="#deleteModal" data-id="{{$produk->id}}">
-    <span class="icon text-white-50">
-        <i class="fas fa-trash"></i>
-    </span>
-    <span class="text">Hapus</span>
-</button>
-
+                    <span class="icon text-white-50">
+                        <i class="fas fa-trash"></i>
+                    </span>
+                    <span class="text">Hapus</span>
+                  </button>
                 </td>
             </tr>
             @empty
