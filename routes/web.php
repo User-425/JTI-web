@@ -53,5 +53,5 @@ Route::middleware(['auth', 'role:Pegawai'])->group(function () {
 
 
 Route::middleware(['auth', 'role:Pembeli'])->group(function () {
-    Route::get('/pembeli/dashboard', 'PembeliController@index')->name('pembeli.dashboard');;
+    Route::get('/pembeli/dashboard', [PembeliController::class, 'index'])->name('pembeli.dashboard');;
 });
