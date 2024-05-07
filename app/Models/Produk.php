@@ -10,7 +10,7 @@ class Produk extends Model
     use HasFactory;
 
     protected $fillable = [
-        'id', 'id_produk', 'nama', 'harga', 'stock'
+        'id', 'id_produk', 'nama', 'harga', 'stok'
     ];
 
     public function transaksis()
