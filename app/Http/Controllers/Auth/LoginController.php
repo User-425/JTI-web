@@ -20,11 +20,12 @@ class LoginController extends Controller
     protected function authenticated(Request $request, $user)
     {
         if ($user->role === 'Pegawai') {
-            return redirect('/pegawai/dashboard');
+            return redirect()->route('pegawai.dashboard');
         } elseif ($user->role === 'Pembeli') {
-            return redirect('/pembeli/dashboard');
+            return redirect()->route('pembeli.dashboard');
         }
-
+    
         return redirect($this->redirectTo);
     }
+    
 }

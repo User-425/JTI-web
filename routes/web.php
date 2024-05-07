@@ -17,12 +17,19 @@ use App\Http\Controllers\ProdukController;
 */
 
 Route::get('/', function () {
+    if (auth()->check()) {
+        if (auth()->user()->role === 'Pegawai') {
+            return redirect()->route('pegawai.dashboard');
+        } elseif (auth()->user()->role === 'Pembeli') {
+            return redirect()->route('pembeli.dashboard');
+        }
+    }
     return view('auth.login');
 });
 
-Route::get('/home', function () {
-    return route('auth.login');
-});
+// Route::get('/home', function () {
+//     return route('auth.login');
+// });
 
 // Route::get('/login', function () {
 //     return view('layouts.login');
