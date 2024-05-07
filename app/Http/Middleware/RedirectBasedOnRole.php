@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,11 +19,11 @@ class RedirectBasedOnRole
     {
         if(Auth::check()) {
             if(auth()->user()->role === 'Pegawai') {
-                return response()->view('pages/pegawai/home');
+                return $next($request);
             }
             
             if(auth()->user()->role === 'Pembeli') {
-                return response()->view('pages/pembeli/home');
+                return $next($request);
             }
         }
         

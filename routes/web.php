@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PegawaiController;
+use App\Http\Controllers\PembeliController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,8 +32,10 @@ Auth::routes();
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::middleware(['auth', 'role:Pegawai'])->group(function () {
-    Route::get('/pegawai/dashboard', 'PegawaiController@index')->name('pegawai.dashboard');
+    Route::get('/pegawai/dashboard', [PegawaiController::class, 'index'])->name('pegawai.dashboard');
+    Route::get('/pegawai/daftar_produk', [PegawaiController::class, 'daftar_produk'])->name('pegawai.produk');
 });
+
 
 Route::middleware(['auth', 'role:Pembeli'])->group(function () {
     Route::get('/pembeli/dashboard', 'PembeliController@index')->name('pembeli.dashboard');;

@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pegawai;
+use App\Models\Produk; // Menggunakan Model Produk
 use Illuminate\Http\Request;
 
 class PegawaiController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     *  Display a listing of the resource.
      */
     public function index()
     {
@@ -34,13 +35,13 @@ class PegawaiController extends Controller
     /**
      * Display the specified resource.
      */
-    public function daftar_produk(Pegawai $pegawai)
+    public function daftar_produk()
     {
         // Retrieve all products from the database
         $produks = Produk::all();
-
+    
         // Pass the products data to the view
-        return view('daftar_produk', ['produks' => $produks]);
+        return view('pages.pegawai.produk', ['produks' => $produks]);
     }
 
     /**
