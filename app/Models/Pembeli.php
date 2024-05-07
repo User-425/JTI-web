@@ -10,7 +10,7 @@ class Pembeli extends Model
     use HasFactory;
 
     protected $fillable = [
-        'id', 'id_pembeli', 'nama'
+        'id', 'id_pembeli', 'nama', 'id_user',
     ];
 
     public function transaksis()

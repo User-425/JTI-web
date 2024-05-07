@@ -34,9 +34,13 @@ class PegawaiController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Pegawai $pegawai)
+    public function daftar_produk(Pegawai $pegawai)
     {
-        //
+        // Retrieve all products from the database
+        $produks = Produk::all();
+
+        // Pass the products data to the view
+        return view('daftar_produk', ['produks' => $produks]);
     }
 
     /**

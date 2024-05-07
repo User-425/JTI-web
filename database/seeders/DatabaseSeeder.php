@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
 
-        $this->call(DatabaseSeeder2::class);
+        // $this->call(DatabaseSeeder2::class);
         $this->call(DatabaseSeeder3::class);
 
         DB::table('users')->insert([
@@ -35,6 +35,24 @@ class DatabaseSeeder extends Seeder
             'role' => 'Pembeli',
             'email_verified_at' => now(),
             'password' => Hash::make('password'),
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        DB::table('pembelis')->insert([
+            'id_pembeli' => '0001',
+            'nama' => 'anfasa',
+            'id_user' => '1',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        DB::table('pegawais')->insert([
+            'nama' => 'Akhif',
+            'id_pegawai' => '0001',
+            'no_telp' => '085706772202',
+            'alamat' => 'Lawang',
+            'id_user' => '2',
             'created_at' => now(),
             'updated_at' => now(),
         ]);

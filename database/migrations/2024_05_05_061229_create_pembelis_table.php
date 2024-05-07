@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('id_pembeli', 10)->unique();
             $table->text('nama');
+            $table->unsignedBigInteger('id_user');
+            $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }
