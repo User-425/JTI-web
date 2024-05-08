@@ -43,15 +43,19 @@ Route::middleware(['auth', 'role:Pegawai'])->group(function () {
     Route::get('/dashboard', [PegawaiController::class, 'index'])->name('pegawai.dashboard');
     Route::get('/daftar_produk', [PegawaiController::class, 'daftar_produk'])->name('daftar_produk');
 
+    Route::get('/pembelian', [PegawaiController::class, 'pembelian'])->name('pegawai.pembelian');
+
     Route::get('/produk/tambah', [ProdukController::class, 'create'])->name('produk.create');
     Route::get('/produk/{id}', [ProdukController::class, 'edit'])->name('produk.show');
     Route::delete('/produk/{id}', [ProdukController::class, 'destroy'])->name('produk.destroy');
     Route::patch('/produk/{id}', [ProdukController::class, 'update'])->name('produk.update');
     Route::post('/produk', [ProdukController::class, 'store'])->name('produk.store');
-    
+
+
 });
 
 
 Route::middleware(['auth', 'role:Pembeli'])->group(function () {
-    Route::get('/pembeli/dashboard', [PembeliController::class, 'index'])->name('pembeli.dashboard');;
+    Route::get('/pembeli/dashboard', [PembeliController::class, 'index'])->name('pembeli.dashboard');
+    ;
 });

@@ -44,6 +44,16 @@ class PegawaiController extends Controller
         return view('pages.pegawai.produk.show', ['data' => $data]);
     }
 
+    public function pembelian()
+    {
+        // Retrieve all products from the database
+        $data = Produk::all();
+    
+        // Pass the products data to the view
+        return view('pages.pegawai.kasir.pembelian', ['data' => $data]);
+    }
+
+
     /**
      * Show the form for editing the specified resource.
      */
