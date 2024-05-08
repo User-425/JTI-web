@@ -12,7 +12,9 @@ class PemasokController extends Controller
      */
     public function index()
     {
-        //
+        $data = Pemasok::all();
+
+        return view ('pages.pegawai.pemasok.show', ['data' => $data]);
     }
 
     /**
@@ -20,7 +22,7 @@ class PemasokController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.pegawai.pemasok.create');
     }
 
     /**
@@ -28,7 +30,16 @@ class PemasokController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'id_pemasok' => 'required|string|max:10',
+            'nama' => 'required|string|max:50',
+            'no_telp' => 'required|string|max:12',
+            'alamat' => 'required|string|max:30',
+        ]);
+
+        Pemasok::create($request->all());
+
+        return redirect()->route('kelola_pemasok')->with('success', "Pemasok added successfully");
     }
 
     /**
@@ -42,24 +53,42 @@ class PemasokController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Pemasok $pemasok)
+    public function edit($id)
     {
-        //
+        $data = Pemasok::findOrFail($id);
+        return view('pages.pegawai.pemasok.edit', ['data' => $data]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Pemasok $pemasok)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'id_pemasok' => 'required|string|max:10',
+            'nama' => 'required|string|max:50',
+            'no_telp' => 'required|string|max:12',
+            'alamat' => 'required|string|max:30',
+        ]);
+
+        $Pemasok = Pemasok::findOrFail($id);
+        $Pemasok->id_pemasok = $request->input('id_pemasok');
+        $Pemasok->nama = $request->input('nama');
+        $Pemasok->no_telp = $request->input('no_telp');
+        $Pemasok->alamat = $request->input('alamat');
+        $Pemasok->save();
+
+        return redirect()->route('kelola_pemasok')->with('succes', 'Pemasok update successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Pemasok $pemasok)
+    public function destroy($id)
     {
-        //
+        $Pemasok = Pemasok::find($id);
+        $Pemasok->delete();
+
+        return redirect('/kelola_pemasok'); 
     }
 }
