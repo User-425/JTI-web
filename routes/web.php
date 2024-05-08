@@ -46,7 +46,6 @@ Route::middleware(['auth', 'role:Pegawai'])->group(function () {
     Route::get('/kelola_pemasok', [PemasokController::class, 'index'])->name('kelola_pemasok');
     Route::get('/kelola_pengguna', [PegawaiController::class, 'pengguna_index'])->name('kelola_pengguna');
 
-
     Route::get('/produk/tambah', [ProdukController::class, 'create'])->name('produk.create');
     Route::get('/produk/{id}', [ProdukController::class, 'edit'])->name('produk.show');
     Route::delete('/produk/{id}', [ProdukController::class, 'destroy'])->name('produk.destroy');
