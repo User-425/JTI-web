@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\PembeliController;
 use App\Http\Controllers\ProdukController;
+use App\Http\Controllers\PemasokController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,6 +45,9 @@ Route::middleware(['auth', 'role:Pegawai'])->group(function () {
     Route::get('/daftar_produk', [PegawaiController::class, 'daftar_produk'])->name('daftar_produk');
 
     Route::get('/pembelian', [PegawaiController::class, 'pembelian'])->name('pegawai.pembelian');
+    Route::get('/kelola_pemasok', [PemasokController::class, 'index'])->name('kelola_pemasok');
+    Route::get('/kelola_pengguna', [PegawaiController::class, 'pengguna_index'])->name('kelola_pengguna');
+
 
     Route::get('/produk/tambah', [ProdukController::class, 'create'])->name('produk.create');
     Route::get('/produk/{id}', [ProdukController::class, 'edit'])->name('produk.show');
@@ -51,7 +55,18 @@ Route::middleware(['auth', 'role:Pegawai'])->group(function () {
     Route::patch('/produk/{id}', [ProdukController::class, 'update'])->name('produk.update');
     Route::post('/produk', [ProdukController::class, 'store'])->name('produk.store');
 
+    Route::get('/pemasok/tambah', [PemasokController::class, 'create'])->name('pemasok.create');
+    Route::get('/pemasok/{id}', [PemasokController::class, 'edit'])->name('pemasok.show');
+    Route::delete('/pemasok/{id}', [PemasokController::class, 'destroy'])->name('pemasok.destroy');
+    Route::patch('/pemasok/{id}', [PemasokController::class, 'update'])->name('pemasok.update');
+    Route::post('/pemasok', [PemasokController::class, 'store'])->name('pemasok.store');
 
+    Route::get('/pengguna/{id}', [PegawaiController::class, 'pengguna_edit'])->name('pengguna.show');
+    Route::delete('/pengguna/{id}', [PegawaiController::class, 'pengguna_destroy'])->name('pengguna.destroy');
+    Route::patch('/pengguna/{id}', [PegawaiController::class, 'pengguna_update'])->name('pengguna.update');
+    Route::post('/pengguna', [PegawaiController::class, 'pengguna_store'])->name('pengguna.store');
+
+    
 });
 
 
