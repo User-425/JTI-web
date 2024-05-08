@@ -21,18 +21,19 @@ Kasir Pembelian
   >.
 </p> -->
 <div class="row">
-  <div class="form-group col-md-2">
-    <input type="text" class="form-control" id="id_pembeli" name="id_pembeli" placeholder="id pembeli" autocomplete="off">
+  <div class="form-group col-md-4">
+    <label for="id_pembeli">ID Pembeli</label>
+    <input type="text" class="form-control" id="id_pembeli" name="id_pembeli" placeholder="0000" autocomplete="off">
   </div>
-</div>
-<div class="row">
   <div class="form-group col-md-6">
-    <select id="jenis" class="form-select" aria-label="Default select example">
+    <label for="jenis">Jenis</label>
+    <select id="jenis" class="form-select form-control" aria-label="Default select example">
       <option value="Tunai" selected>Tunai</option>
       <option value="Non-tunai">Non-tunai</option>
     </select>
   </div>
 </div>
+
 <br>
 
 
@@ -105,6 +106,8 @@ Kasir Pembelian
     <button type="button" class="btn btn-primary" id="storeTransaction">Submit</button>
   </div>
 </div>
+<br>
+
 
 <!-- Delete Confirmation Modal -->
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
