@@ -63,19 +63,29 @@ $('.btn-add-item').on('click', function() {
 
 // Event listener for storing transaction
 $("#storeTransaction").on("click", function () {
+  var id_pembeli = $("#id_pembeli").val();
+  var jenis = $("#jenis").val();
+  var csrfToken = $('meta[name="csrf-token"]').attr('content');
   // Send itemsToAdd array to the controller using AJAX
   $.ajax({
-    url: "/store-transaction",
+    url: "/simpan_transaksi",
     type: "POST",
+    headers: {
+      'X-CSRF-TOKEN': csrfToken
+    },
     data: {
-      _token: "{{ csrf_token() }}",
+      id_pembeli: id_pembeli,
+      jenis: jenis,
       items: itemsToAdd,
+      id_pegawai: id_pegawai,
     },
     success: function (response) {
       console.log("Data Terkirim!");
+      console.log(response);
     },
     error: function (xhr) {
       console.log("Data Gagal Terkirim!");
+      console.error(xhr);
     },
   });
 });
@@ -142,12 +152,12 @@ function validateQuantity(input) {
     order: [[1, "asc"]],
   });
 
-dataTable.on("draw.dt", function () {
-  var PageInfo = dataTable.page.info();
-  dataTable.column(0, { page: "current" }).nodes().each(function (cell, i) {
-      cell.innerHTML = i + 1 + PageInfo.start;
-  });
-});
+// dataTable.on("draw.dt", function () {
+//   var PageInfo = dataTable.page.info();
+//   dataTable.column(0, { page: "current" }).nodes().each(function (cell, i) {
+//       cell.innerHTML = i + 1 + PageInfo.start;
+//   });
+// });
 
 t.on("draw.dt", function () {
   var PageInfo = $("#produkTable").DataTable().page.info();

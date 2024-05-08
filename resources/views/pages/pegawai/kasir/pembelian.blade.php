@@ -5,6 +5,7 @@ Kasir Pembelian
 @endsection
 
 @section('page_css')
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <!-- Custom styles for this page -->
 <link href="{{asset('vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
 @endsection
@@ -21,12 +22,12 @@ Kasir Pembelian
 </p> -->
 <div class="row">
   <div class="form-group col-md-2">
-    <input type="text" class="form-control" id="id_user" name="id_user" placeholder="id user" autocomplete="off">
+    <input type="text" class="form-control" id="id_pembeli" name="id_pembeli" placeholder="id pembeli" autocomplete="off">
   </div>
 </div>
 <div class="row">
   <div class="form-group col-md-6">
-    <select class="form-select" aria-label="Default select example">
+    <select id="jenis" class="form-select" aria-label="Default select example">
       <option value="Tunai" selected>Tunai</option>
       <option value="Non-tunai">Non-tunai</option>
     </select>
@@ -190,6 +191,7 @@ Kasir Pembelian
 @section('page_script')
   <script>
     const dataList = {!! json_encode($data) !!};
+    const id_pegawai = {{$id}};
   </script>
   
     <!-- Page level plugins -->

@@ -28,7 +28,31 @@ class TransaksiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'jenis' => 'required|in:Tunai,Non-Tunai',
+            'id_pegawai' => 'required|string|max:10',
+            'id_pembeli' => 'required|string|max:10',
+            'items' => 'required|array',
+            'items.*.id' => 'required|string|max:10',
+            'items.*.quantity' => 'required|integer|min:1',
+        ]);
+
+        // Create transaction
+        $transaksi = Transaksi::create([
+            'jenis' => $validatedData['jenis'],
+            'waktu' => now(),
+            'id_pegawai' => $validatedData['id_pegawai'],
+            'id_pembeli' => $validatedData['id_pembeli'],
+        ]);
+
+        foreach ($validatedData['items'] as $item) {
+            $transaksi->produks()->attach($item['id'], [
+                'jumlah' => $item['quantity'],
+                'harga' => 0, // Since the harga is calculated on the client-side, we set it to 0 here
+            ]);
+        }
+
+        return response()->json(['message' => 'Transaction created successfully'], 201);
     }
 
     /**
