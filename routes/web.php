@@ -66,7 +66,7 @@ Route::middleware(['auth', 'role:Pegawai'])->group(function () {
     Route::patch('/pengguna/{id}', [PegawaiController::class, 'pengguna_update'])->name('pengguna.update');
     Route::post('/pengguna', [PegawaiController::class, 'pengguna_store'])->name('pengguna.store');
 
-    
+    Route::post('/simpan_transaksi', [PegawaiController::class, 'pengguna_store'])->name('pengguna.store');
 });
 
 

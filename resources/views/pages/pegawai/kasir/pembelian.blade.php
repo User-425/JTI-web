@@ -63,12 +63,12 @@ Kasir Pembelian
         <tfoot>
           <tr>
             <th colspan="6" style="text-align:end; border-right: none !important;">Total Harga: </th>
-            <th style="text-align:end">Rp9000</th> <!-- Will be dynamically generated-->
+            <th id="totalPrice" style="text-align:end">Rp0</th> <!-- Will be dynamically generated-->
           </tr>
         </tfoot> 
         <tbody>
           <!-- This will be dynamically loaded -->
-            @forelse ($data as $produk)
+            <!-- @forelse ($data as $produk)
             <tr>
                 <td class="text-center"> {{$loop->index + 1}}</td>
                 <td> {{ $produk->id_produk }}</td>
@@ -93,7 +93,7 @@ Kasir Pembelian
                     Data Kosong
                 </td>
             </tr>
-            @endforelse
+            @endforelse -->
         </tbody>
       </table>
     </div>
@@ -101,7 +101,7 @@ Kasir Pembelian
 </div>
 <div class="row justify-content-end">
   <div class="col-auto">
-    <button type="button" class="btn btn-primary">Primary</button>
+    <button type="button" class="btn btn-primary" id="storeTransaction">Submit</button>
   </div>
 </div>
 
@@ -159,7 +159,7 @@ Kasir Pembelian
                 <td> {{ $produk->id_produk }}</td>
                 <td> {{ $produk->nama }}</td>
                 <td style="width:20%">
-                  <button type="button" class="btn btn-primary btn-icon-split btn-sm" data-toggle="modal" data-target="#deleteModal" data-id="{{$produk->id}}">
+                  <button type="button" class="btn btn-primary btn-icon-split btn-sm btn-add-item"  data-id="{{$produk->id}}">
                     <span class="icon text-white-50">
                         <i class="fas fa-plus"></i>
                     </span>
@@ -188,6 +188,10 @@ Kasir Pembelian
 @endsection
 
 @section('page_script')
+  <script>
+    const dataList = {!! json_encode($data) !!};
+  </script>
+  
     <!-- Page level plugins -->
     <script src="{{asset('vendor/datatables/jquery.dataTables.min.js')}}"></script>
     <script src="{{asset('vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
