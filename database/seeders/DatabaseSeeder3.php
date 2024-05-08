@@ -58,5 +58,51 @@ class DatabaseSeeder3 extends Seeder
             'created_at' => now(),
             'updated_at' => now(),
         ]);
+
+        DB::table('pemasoks')->insert([
+            'id_pemasok' => '111',
+            'nama' => 'Budi',
+            'no_telp' => '081232493313',
+            'alamat' => 'Jalan Merdeka',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        DB::table('pemasoks')->insert([
+            'id_pemasok' => '112',
+            'nama' => 'Bima',
+            'no_telp' => '081232478208',
+            'alamat' => 'Jalan Manggis',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        DB::table('pemasoks')->insert([
+            'id_pemasok' => '113',
+            'nama' => 'Agus',
+            'no_telp' => '081297215437',
+            'alamat' => 'Jalan Matahari',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        DB::table('pemasoks')->insert([
+            'id_pemasok' => '114',
+            'nama' => 'Anisa',
+            'no_telp' => '081254389876',
+            'alamat' => 'Jalan Belimbing',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        DB::table('pemasoks')->insert([
+            'id_pemasok' => '115',
+            'nama' => 'Anto',
+            'no_telp' => '081234579865',
+            'alamat' => 'Jalan Jakarta',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
     }
 }
