@@ -44,6 +44,8 @@ Route::middleware(['auth', 'role:Pegawai'])->group(function () {
     Route::get('/dashboard', [PegawaiController::class, 'index'])->name('pegawai.dashboard');
     Route::get('/daftar_produk', [PegawaiController::class, 'daftar_produk'])->name('daftar_produk');
     Route::get('/kelola_pemasok', [PemasokController::class, 'index'])->name('kelola_pemasok');
+    Route::get('/kelola_pengguna', [PegawaiController::class, 'pengguna_index'])->name('kelola_pengguna');
+
 
     Route::get('/produk/tambah', [ProdukController::class, 'create'])->name('produk.create');
     Route::get('/produk/{id}', [ProdukController::class, 'edit'])->name('produk.show');
@@ -56,6 +58,12 @@ Route::middleware(['auth', 'role:Pegawai'])->group(function () {
     Route::delete('/pemasok/{id}', [PemasokController::class, 'destroy'])->name('pemasok.destroy');
     Route::patch('/pemasok/{id}', [PemasokController::class, 'update'])->name('pemasok.update');
     Route::post('/pemasok', [PemasokController::class, 'store'])->name('pemasok.store');
+
+    Route::get('/pengguna/{id}', [PegawaiController::class, 'pengguna_edit'])->name('pengguna.show');
+    Route::delete('/pengguna/{id}', [PegawaiController::class, 'pengguna_destroy'])->name('pengguna.destroy');
+    Route::patch('/pengguna/{id}', [PegawaiController::class, 'pengguna_update'])->name('pengguna.update');
+    Route::post('/pengguna', [PegawaiController::class, 'pengguna_store'])->name('pengguna.store');
+
     
 });
 
