@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Pegawai;
 use App\Models\Produk; // Menggunakan Model Produk
+use App\Models\User; // Menggunakan Model User
 use Illuminate\Http\Request;
 
 class PegawaiController extends Controller
@@ -66,5 +67,43 @@ class PegawaiController extends Controller
     public function destroy(Pegawai $pegawai)
     {
         //
+    }
+
+    public function pengguna_index(){
+        
+        $data = User::all();
+
+        return view('pages.pegawai.pengguna.show', ['data' => $data]);
+    }
+
+    public function pengguna_destroy($id){
+        
+        $pengguna = User::find($id);
+        $pengguna->delete();
+        
+        return redirect('/kelola_pengguna');
+    }
+
+    public function pengguna_edit($id){
+        
+        $pengguna = User::find($id);
+        return view('pages.pegawai.pengguna.edit', ['data' => $pengguna]);
+    }
+
+    public function pengguna_update(Request $request, $id){
+        
+        $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|email',
+            'role' => 'required|string',
+        ]);
+
+        $pengguna = User::find($id);
+        $pengguna->name = $request->name;
+        $pengguna->email = $request->email;
+        $pengguna->role = $request->role;
+        $pengguna->save();
+        
+        return redirect('/kelola_pengguna');
     }
 }
