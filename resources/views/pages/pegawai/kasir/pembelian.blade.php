@@ -19,10 +19,25 @@ Kasir Pembelian
     >official DataTables documentation</a
   >.
 </p> -->
+<div class="row">
+  <div class="form-group col-md-2">
+    <input type="text" class="form-control" id="id_user" name="id_user" placeholder="id user" autocomplete="off">
+  </div>
+</div>
+<div class="row">
+  <div class="form-group col-md-6">
+    <select class="form-select" aria-label="Default select example">
+      <option value="Tunai" selected>Tunai</option>
+      <option value="Non-tunai">Non-tunai</option>
+    </select>
+  </div>
+</div>
+<br>
+
 
 <div class="card shadow mb-4">
 <div class="card-header py-3 d-flex justify-content-between align-items-center">
-    <h6 class="m-0 font-weight-bold text-primary">Daftar Produk</h6>
+    <h6 class="m-0 font-weight-bold text-primary">Kasir</h6>
     <button href="#" data-toggle="modal" data-target="#produkModal"  class="btn btn-primary btn-icon-split btn-sm">
         <span class="icon text-white-50">
             <i class="fas fa-plus"></i>
@@ -31,7 +46,7 @@ Kasir Pembelian
 </button>
 </div>
 
-  <div class="card-body">
+<div class="card-body">
   <div class="table-responsive">
       <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="text-align:center;">
         <thead>
@@ -48,10 +63,11 @@ Kasir Pembelian
         <tfoot>
           <tr>
             <th colspan="6" style="text-align:end; border-right: none !important;">Total Harga: </th>
-            <th style="text-align:end">Rp9000</th>
+            <th style="text-align:end">Rp9000</th> <!-- Will be dynamically generated-->
           </tr>
         </tfoot> 
         <tbody>
+          <!-- This will be dynamically loaded -->
             @forelse ($data as $produk)
             <tr>
                 <td class="text-center"> {{$loop->index + 1}}</td>
@@ -83,7 +99,11 @@ Kasir Pembelian
     </div>
   </div>
 </div>
-
+<div class="row justify-content-end">
+  <div class="col-auto">
+    <button type="button" class="btn btn-primary">Primary</button>
+  </div>
+</div>
 
 <!-- Delete Confirmation Modal -->
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
