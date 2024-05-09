@@ -18,7 +18,7 @@ function addItemToTable(item) {
       '<td>' + tempItem.nama + '</td>' +
       '<td>' + tempItem.harga + '</td>' +
       '<td>' +
-      '<input class="jumlah"  type="number" min="1" data-id="' + tempItem.id + '" data-harga="' + tempItem.harga + '" oninput="validateQuantity(this)">' +
+      '<input class="jumlah"  type="number" min="1" data-id="' + tempItem.id + '" data-harga="' + tempItem.harga + '" onchange="updateQuantity(this)" oninput="validateQuantity(this)">' +
       '</td>' +
       '<td class="total" data-id="' + tempItem.id + '">0</td>' +
       '<td style="width:20%">' +
@@ -34,6 +34,16 @@ function addItemToTable(item) {
   table.row.add($(row)).draw();
   updateTotalPrice();
   updateIndexColumn(); // Update index column immediately
+}
+
+function updateQuantity(input) {
+  var id = $(input).data('id');
+  var quantity = parseInt($(input).val());
+  var itemIndex = itemsToAdd.findIndex(i => i.id === id);
+  if (itemIndex !== -1) {
+      itemsToAdd[itemIndex].quantity = quantity;
+  }
+  updateTotalPrice();
 }
 
 var itemsToAdd = []; // Array to store items to be added
