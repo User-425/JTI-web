@@ -20,10 +20,10 @@ Edit Pengguna
     
     <div class="form-group col-md-3">
       <label for="role">Role</label>
-      <select class="form-select" aria-label="Default select example" name="role">
-  <option value="Pegawai">Pegawai</option>
-  <option value="Pembeli">Pembeli</option>
-</select>
+      <select class="form-select form-control" aria-label="Default select example" name="role">
+        <option value="Pegawai">Pegawai</option>
+        <option value="Pembeli">Pembeli</option>
+      </select>
       <!-- <input type="text" class="form-control" id="role" name="role" aria-label="role" placeholder="Role" value="{{$data->role}}" autocomplete="off"> -->
     </div>
     
