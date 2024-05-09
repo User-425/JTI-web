@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Transaksi;
+use App\Models\RTransProd;
 use Illuminate\Http\Request;
 
 class TransaksiController extends Controller
@@ -12,7 +13,8 @@ class TransaksiController extends Controller
      */
     public function index()
     {
-        //
+        $data = Transaksi::with('pembeli', 'pegawai')->get();
+        return view('pages.pegawai.transaksi.pembelian', compact('data'));
     }
 
     /**
@@ -34,9 +36,15 @@ class TransaksiController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Transaksi $transaksi)
-    {
-        //
+    public function show($id)
+    {   
+        $data = Transaksi::with('pembeli', 'pegawai')->get();
+
+        $id = auth()->id();
+
+        $pegawai = RTransProd::where('id_user', $id)->all();
+        $pegawaiId = $pegawai->id_pegawai;
+        return view('pages.pegawai.transaksi.pembelian', compact('data'));
     }
 
     /**
