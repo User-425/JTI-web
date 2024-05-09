@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Penyediaan;
 use App\Models\RPenyProd;
 use Illuminate\Http\Request;
 
@@ -28,7 +28,36 @@ class RPenyProdController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'id_pegawai' => 'required|string|max:10',
+            'id_pemasok' => 'required|string|max:10',
+            'items' => 'required|array',
+            'items.*.id' => 'required|string|max:10',
+            'items.*.quantity' => 'required|integer|min:1',
+            'items.*.price' => 'required|integer|min:1',
+        ]);
+    
+        // Create transaction
+        $penyediaan =Penyediaan::create([
+            'waktu' => now(),
+            'id_pegawai' => $validatedData['id_pegawai'],
+            'id_pemasok' => $validatedData['id_pemasok'],
+        ]);
+    
+        // Get the ID of the created transaction
+        $penyediaanId = $penyediaan->id;
+    
+        // Associate products with the transaction in RTransProd table
+        foreach ($validatedData['items'] as $item) {
+            RTransProd::create([
+                'id_produk' => $item['id'],
+                'id_penyediaan' => $penyediaanId,
+                'jumlah' => $item['quantity'],
+                'harga' => $item['price'],
+            ]);
+        }
+    
+        return response()->json(['message' => 'Transaction created successfully'], 201);
     }
 
     /**

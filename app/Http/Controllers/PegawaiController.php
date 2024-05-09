@@ -57,6 +57,18 @@ class PegawaiController extends Controller
         return view('pages.pegawai.kasir.pembelian', ['data' => $data, 'pegawaiId'=> $pegawaiId]);
     }
 
+    public function restock()
+    {
+        // Retrieve all products from the database
+        $data = Produk::all();
+        $id = auth()->id();
+
+        $pegawai = Pegawai::where('id_user', $id)->first();
+        $pegawaiId = $pegawai->id_pegawai;
+
+        return view('pages.pegawai.kasir.restock', ['data' => $data, 'pegawaiId'=> $pegawaiId]);
+    }
+
 
     /**
      * Show the form for editing the specified resource.
