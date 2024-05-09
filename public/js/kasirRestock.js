@@ -6,10 +6,10 @@ function addItemToTable(item) {
       '<td>' + tempItem.id_produk + '</td>' +
       '<td>' + tempItem.nama + '</td>' +
       '<td>' +
-      '<input class="jumlah"  type="number" min="1" data-id="' + tempItem.id + '" data-harga="' + tempItem.harga + '" oninput="validateQuantity(this)">' +
+      '<input class="jumlah" value="1" type="number" min="1" data-id="' + tempItem.id + '" data-harga="' + tempItem.harga + '" oninput="validateQuantity(this)">' +
       '</td>' +
       '<td>' +
-      '<input class="harga"  type="number" min="1" data-id="' + tempItem.id + '" data-harga="' + tempItem.harga + '" oninput="validateQuantity(this)">' +
+      '<input class="harga" value="1" type="number" min="1" data-id="' + tempItem.id + '" data-harga="' + tempItem.harga + '" oninput="validateQuantity(this)">' +
       '</td>' +
       '<td style="width:20%">' +
       '<button type="button" class="btn btn-danger btn-icon-split btn-sm removeItem" data-id="' + tempItem.id + '">' +
@@ -31,7 +31,7 @@ var itemsToAdd = []; // Array to store items to be added
 // Event listener for adding item
 $('.btn-add-item').on('click', function() {
   var productId = $(this).data('id');
-  var quantity = 1; // You can change this as per your requirement
+  var quantity = 1; 
   var price = 1;
 
   var newItem = {

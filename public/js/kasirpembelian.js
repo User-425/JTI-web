@@ -18,9 +18,9 @@ function addItemToTable(item) {
       '<td>' + tempItem.nama + '</td>' +
       '<td>' + tempItem.harga + '</td>' +
       '<td>' +
-      '<input class="jumlah"  type="number" min="1" data-id="' + tempItem.id + '" data-harga="' + tempItem.harga + '" onchange="updateQuantity(this)" oninput="validateQuantity(this)">' +
+      '<input class="jumlah" value="1" type="number" min="1" data-id="' + tempItem.id + '" data-harga="' + tempItem.harga + '" onchange="updateQuantity(this)" oninput="validateQuantity(this)">' +
       '</td>' +
-      '<td class="total" data-id="' + tempItem.id + '">0</td>' +
+      '<td class="total" data-id="' + tempItem.id + '">'+ tempItem.harga +'</td>' +
       '<td style="width:20%">' +
       '<button type="button" class="btn btn-danger btn-icon-split btn-sm removeItem" data-id="' + tempItem.id + '">' +
       '<span class="icon text-white-50">' +
@@ -90,11 +90,13 @@ $("#storeTransaction").on("click", function () {
       id_pegawai: id_pegawai,
     },
     success: function (response) {
-      console.log("Data Terkirim!");
+      alertify.success('Data Tersimpan!');
+      console.log("Data Tersimpan!");
       console.log(response);
     },
     error: function (xhr) {
-      console.log("Data Gagal Terkirim!");
+      alertify.error('Data Gagal Tersimpan!');
+      console.log("Data Gagal Tersimpan!");
       console.error(xhr);
     },
   });
