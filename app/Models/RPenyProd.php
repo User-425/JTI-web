@@ -10,7 +10,7 @@ class RPenyProd extends Model
     use HasFactory;
 
     protected $fillable = [
-        'id', 'id_produk', 'id_penyediaan', 'jumlah',
+        'id', 'id_produk', 'id_penyediaan', 'jumlah', 'harga',
     ];
 
     public function produk()
