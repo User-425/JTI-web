@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Produk;
 use App\Models\Pembeli;
 use Illuminate\Http\Request;
 
@@ -34,32 +34,11 @@ class PembeliController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Pembeli $pembeli)
+    public function show()
     {
-        //
+        $data = Produk::all();
+
+        return view ('pages.pembeli.home', ['data' => $data]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Pembeli $pembeli)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Pembeli $pembeli)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Pembeli $pembeli)
-    {
-        //
-    }
 }
