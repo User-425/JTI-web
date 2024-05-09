@@ -71,7 +71,7 @@ Route::middleware(['auth', 'role:Pegawai'])->group(function () {
 
     Route::post('/simpan_transaksi', [RTransProdController::class, 'store'])->name('simpan.transaksi');
 
-    Route::get('/transaksi/pembelian/{id}', [TransaksiController::class, 'show'])->name('pengguna.show');
+    Route::get('/transaksi/pembelian/{id}', [TransaksiController::class, 'show'])->name('transaksi.show');
 });
 
 

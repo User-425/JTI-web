@@ -44,7 +44,7 @@ class TransaksiController extends Controller
 
         $pegawai = RTransProd::where('id_user', $id)->all();
         $pegawaiId = $pegawai->id_pegawai;
-        return view('pages.pegawai.transaksi.pembelian', compact('data'));
+        return view('pages.pegawai.transaksi.detail_pembelian', compact('data'));
     }
 
     /**
