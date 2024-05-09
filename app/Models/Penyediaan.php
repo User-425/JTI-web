@@ -10,7 +10,7 @@ class Penyediaan extends Model
     use HasFactory;
 
     protected $fillable = [
-        'id', 'waktu', 'id_pemasok'
+        'id', 'waktu', 'id_pemasok', 'id_pegawai',
     ];
 
     public function pemasoks()

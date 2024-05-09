@@ -49,7 +49,7 @@ class RPenyProdController extends Controller
     
         // Associate products with the transaction in RTransProd table
         foreach ($validatedData['items'] as $item) {
-            RTransProd::create([
+            RPenyProd::create([
                 'id_produk' => $item['id'],
                 'id_penyediaan' => $penyediaanId,
                 'jumlah' => $item['quantity'],
