@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Produk;
 use App\Models\Pemasok;
 use Illuminate\Http\Request;
 
