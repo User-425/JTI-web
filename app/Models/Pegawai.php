@@ -12,7 +12,9 @@ class Pegawai extends Model
     protected $fillable = [
         'id', 'id_pegawai', 'nama', 'no_telp', 'alamat', 'id_user',
     ];
-
+    protected $casts = [
+        'id_pegawai' => 'string',
+    ];
     public function transaksis()
     {
         return $this->hasMany(Transaksi::class);

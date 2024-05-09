@@ -13,13 +13,13 @@ class Transaksi extends Model
         'id', 'id_transaksi', 'jenis', 'waktu', 'id_pegawai','id_pembeli',
     ];
 
-    public function pembelis()
+    public function pembeli()
     {
         return $this->belongsTo(Pembeli::class, 'id_pembeli', 'id_pembeli');
     }
 
-    public function pegawais()
+    public function pegawai()
     {
-        return $this->belongsTo(Pegewai::class, 'id_pegawai', 'id_pegawai');
+        return $this->belongsTo(Pegawai::class, 'id_pegawai', 'id_pegawai');
     }
 }

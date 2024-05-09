@@ -194,7 +194,7 @@ Kasir Pembelian
 @section('page_script')
   <script>
     const dataList = {!! json_encode($data) !!};
-    const id_pegawai = {{$id}};
+    const id_pegawai = {{$pegawaiId}};
   </script>
   
     <!-- Page level plugins -->

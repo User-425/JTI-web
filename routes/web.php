@@ -46,10 +46,11 @@ Auth::routes();
 Route::middleware(['auth', 'role:Pegawai'])->group(function () {
     Route::get('/dashboard', [PegawaiController::class, 'index'])->name('pegawai.dashboard');
     Route::get('/daftar_produk', [PegawaiController::class, 'daftar_produk'])->name('daftar_produk');
-
     Route::get('/pembelian', [PegawaiController::class, 'pembelian'])->name('pegawai.pembelian');
     Route::get('/kelola_pemasok', [PemasokController::class, 'index'])->name('kelola_pemasok');
     Route::get('/kelola_pengguna', [PegawaiController::class, 'pengguna_index'])->name('kelola_pengguna');
+    Route::get('/transaksi/pembelian', [TransaksiController::class, 'index'])->name('');
+
 
     Route::get('/produk/tambah', [ProdukController::class, 'create'])->name('produk.create');
     Route::get('/produk/{id}', [ProdukController::class, 'edit'])->name('produk.show');
@@ -69,6 +70,8 @@ Route::middleware(['auth', 'role:Pegawai'])->group(function () {
     Route::post('/pengguna', [PegawaiController::class, 'pengguna_store'])->name('pengguna.store');
 
     Route::post('/simpan_transaksi', [RTransProdController::class, 'store'])->name('simpan.transaksi');
+
+    Route::get('/transaksi/pembelian/{id}', [TransaksiController::class, 'show'])->name('pengguna.show');
 });
 
 

@@ -40,7 +40,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         DB::table('pembelis')->insert([
-            'id_pembeli' => '0001',
+            'id_pembeli' => '1001',
             'nama' => 'Aakhif',
             'id_user' => '2',
             'created_at' => now(),
@@ -49,7 +49,7 @@ class DatabaseSeeder extends Seeder
 
         DB::table('pegawais')->insert([
             'nama' => 'Anfasa',
-            'id_pegawai' => '0001',
+            'id_pegawai' => '2001',
             'no_telp' => '085706772202',
             'alamat' => 'Gresik',
             'id_user' => '1',

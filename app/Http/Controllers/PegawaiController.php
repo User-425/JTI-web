@@ -50,9 +50,11 @@ class PegawaiController extends Controller
         // Retrieve all products from the database
         $data = Produk::all();
         $id = auth()->id();
-    
-        // Pass the products data to the view
-        return view('pages.pegawai.kasir.pembelian', ['data' => $data, 'id'=> $id]);
+
+        $pegawai = Pegawai::where('id_user', $id)->first();
+        $pegawaiId = $pegawai->id_pegawai;
+
+        return view('pages.pegawai.kasir.pembelian', ['data' => $data, 'pegawaiId'=> $pegawaiId]);
     }
 
 
