@@ -6,10 +6,10 @@ function addItemToTable(item) {
       '<td>' + tempItem.id_produk + '</td>' +
       '<td>' + tempItem.nama + '</td>' +
       '<td>' +
-      '<input class="jumlah" value="1" type="number" min="1" data-id="' + tempItem.id + '" data-harga="' + tempItem.harga + '" oninput="validateQuantity(this)">' +
+      '<input class="jumlah" value="1" type="number" min="1" data-id="' + tempItem.id + '"  onchange="updateQuantity(this)" oninput="validateQuantity(this)">' +
       '</td>' +
       '<td>' +
-      '<input class="harga" value="1" type="number" min="1" data-id="' + tempItem.id + '" data-harga="' + tempItem.harga + '" oninput="validateQuantity(this)">' +
+      '<input class="harga" value="1" type="number" min="1" data-id="' + tempItem.id + '" onchange="updatePrice(this)" oninput="validateQuantity(this)">' +
       '</td>' +
       '<td style="width:20%">' +
       '<button type="button" class="btn btn-danger btn-icon-split btn-sm removeItem" data-id="' + tempItem.id + '">' +
@@ -104,7 +104,25 @@ function updateTotalPrice() {
   $('#totalPrice').text('Rp' + total.toFixed(2));
 }
 
+function updateQuantity(input) {
+  var id = $(input).data('id');
+  var quantity = parseInt($(input).val());
+  var itemIndex = itemsToAdd.findIndex(i => i.id === id);
+  if (itemIndex !== -1) {
+      itemsToAdd[itemIndex].quantity = quantity;
+  }
+  updateTotalPrice();
+}
 
+function updatePrice(input) {
+  var id = $(input).data('id');
+  var price = parseInt($(input).val());
+  var itemIndex = itemsToAdd.findIndex(i => i.id === id);
+  if (itemIndex !== -1) {
+      itemsToAdd[itemIndex].price = price;
+  }
+  updateTotalPrice();
+}
 // Function to update index column
 function updateIndexColumn() {
   $('#dataTable tbody tr').each(function(index) {
