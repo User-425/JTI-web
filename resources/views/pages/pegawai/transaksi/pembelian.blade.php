@@ -88,7 +88,7 @@ Riwayat Transaksi Pembelian
                 </button>
             </div>
             <div class="modal-body">
-                Apakah Anda Yakin Ingin Menghapus Data Produk Ini?
+                Apakah Anda Yakin Ingin Menghapus Data Transaksi Ini?
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
@@ -111,5 +111,5 @@ Riwayat Transaksi Pembelian
 
     <!-- Page level custom scripts -->
     <script src="{{asset('js/demo/datatables-demo.js')}}"></script>
-    <script src="{{asset('js/daftarproduk.js')}}"></script>
+    <script src="{{asset('js/daftartransaksi.js')}}"></script>
 @endsection

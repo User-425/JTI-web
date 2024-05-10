@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\RTransProd;
 use App\Models\Transaksi;
+use App\Models\Produk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -52,11 +53,13 @@ class RTransProdController extends Controller
     
         // Associate products with the transaction in RTransProd table
         foreach ($validatedData['items'] as $item) {
+            $product = Produk::where('id', $item['id'])->firstOrFail();
+            $item['price'] = $product->harga;
             RTransProd::create([
                 'id_produk' => $item['id'],
                 'id_transaksi' => $transaksiId,
                 'jumlah' => $item['quantity'],
-                'harga' => 0,
+                'harga' => $item['price'],
             ]);
         }
     

@@ -29,7 +29,7 @@ Kasir Pembelian
     <label for="jenis">Jenis</label>
     <select id="jenis" class="form-select form-control" aria-label="Default select example">
       <option value="Tunai" selected>Tunai</option>
-      <option value="Non-tunai">Non-tunai</option>
+      <option value="Non-Tunai">Non-Tunai</option>
     </select>
   </div>
 </div>

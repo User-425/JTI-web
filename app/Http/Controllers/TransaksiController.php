@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Transaksi;
 use App\Models\RTransProd;
+use App\Models\Produk;
+use App\Models\Pegawai;
+use App\Models\Pembeli;
 use Illuminate\Http\Request;
 
 class TransaksiController extends Controller
@@ -37,15 +40,24 @@ class TransaksiController extends Controller
      * Display the specified resource.
      */
     public function show($id)
-    {   
-        $data = Transaksi::with('pembeli', 'pegawai')->get();
+    {
+        // Fetch the transaction details
+        $transaksi = Transaksi::findOrFail($id);
+        $transaksi->pegawaiName = Pegawai::where('id_pegawai', $transaksi->id_pegawai)->firstOrFail()->nama;
+        $transaksi->pembeliName = Pembeli::where('id_pembeli', $transaksi->id_pembeli)->firstOrFail()->nama;
 
-        $id = auth()->id();
-
-        $pegawai = RTransProd::where('id_user', $id)->all();
-        $pegawaiId = $pegawai->id_pegawai;
-        return view('pages.pegawai.transaksi.detail_pembelian', compact('data'));
+        // Fetch associated products for the transaction with their names
+        $items = RTransProd::where('id_transaksi', $id)->get();
+        foreach ($items as $item) {
+            $product = Produk::findOrFail($item->id_produk);
+            $item->nama = $product->nama; // Assuming the name attribute in the Produk model is 'name'
+        }
+    
+        // Pass the transaction and associated products to the view
+        return view('pages.pegawai.transaksi.detail_pembelian', compact('transaksi', 'items'));
     }
+    
+    
 
     /**
      * Show the form for editing the specified resource.
@@ -66,8 +78,11 @@ class TransaksiController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Transaksi $transaksi)
+    public function destroy($id)
     {
-        //
+        $transaksi = Transaksi::find($id);
+        $transaksi->delete();
+
+        return redirect('/transaksi/pembelian');
     }
 }

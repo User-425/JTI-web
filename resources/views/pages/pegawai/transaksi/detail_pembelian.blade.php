@@ -1,10 +1,11 @@
 @extends('layouts.pegawai.dashboard') 
 
 @section('title') 
-Riwayat Transaksi Pembelian
+Detail Pembelian
 @endsection
 
 @section('page_css')
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <!-- Custom styles for this page -->
 <link href="{{asset('vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
 @endsection
@@ -19,50 +20,61 @@ Riwayat Transaksi Pembelian
     >official DataTables documentation</a
   >.
 </p> -->
+<div class="row">
+  <div class="form-group col-md-3">
+    <label for="id_pembeli">Pegawai</label>
+    <input type="text" class="form-control" id="id_pembeli" name="id_pembeli" placeholder="0000" autocomplete="off" value="{{ $transaksi->pegawaiName }}" disabled>
+  </div>
+  <div class="form-group col-md-3">
+    <label for="id_pembeli">Pembeli:</label>
+    <input type="text" class="form-control" id="id_pembeli" name="id_pembeli" placeholder="0000" autocomplete="off" value="{{ $transaksi->pembeliName }} " disabled>
+  </div>
+  <div class="form-group col-md-4">
+    <label for="id_pembeli">Jenis Pembayaran</label>
+    <input type="text" class="form-control" id="id_pembeli" name="id_pembeli" placeholder="0000" autocomplete="off" value="{{ $transaksi->jenis }}" disabled>
+  </div>
+  <!-- <div class="form-group col-md-6">
+    <label for="jenis">Jenis</label>
+    <select id="jenis" class="form-select form-control" aria-label="Default select example">
+      <option value="Tunai" selected>Tunai</option>
+      <option value="Non-tunai">Non-tunai</option>
+    </select>
+  </div> -->
+</div>
+
+<br>
+
 
 <div class="card shadow mb-4">
 <div class="card-header py-3 d-flex justify-content-between align-items-center">
-    <h6 class="m-0 font-weight-bold text-primary">Riwayat Pembelian</h6>
+    <h6 class="m-0 font-weight-bold text-primary">Daftar Produk yang Dibeli</h6>
 </div>
 
-  <div class="card-body">
-    <div class="table-responsive">
+<div class="card-body">
+  <div class="table-responsive">
       <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="text-align:center;">
         <thead>
           <tr>
             <th>No</th>
-            <th>ID Transaksi</th>
-            <th>Pembeli</th>
-            <th>Pegawai</th>
-            <th>Jenis Pembayaran</th>
-            <th>Waktu</th>
-            <th>Aksi</th>
+            <th>ID Produk</th>
+            <th>Nama</th>
+            <th>Jumlah</th>
+            <th>Harga</th>
+            <th>Total</th>
           </tr>
         </thead>    
         <tbody>
-            @forelse ($data as $transaksi)
+            <!-- {{$total = 0}} -->
+            @forelse ($items as $produk)
             <tr>
                 <td class="text-center"> {{$loop->index + 1}}</td>
-                <td> {{ $transaksi->id}}</td>
-                <td> {{ $transaksi->pembeli->nama }}</td>
-                <td> {{ $transaksi->pegawai->nama }}</td>
-                <td> {{ $transaksi->jenis }}</td>
-                <td> {{ $transaksi->waktu }}</td>
-                <td style="width:20%">
-                  <a href="{{ route('transaksi.show', $transaksi->id)}}" class="btn btn-info btn-icon-split btn-sm">
-                      <span class="icon text-white-50">
-                          <i class="fas fa-eye"></i>
-                      </span>
-                      <span class="text">Lihat</span>
-                  </a>
-                  <button type="button" class="btn btn-danger btn-icon-split btn-sm" data-toggle="modal" data-target="#deleteModal" data-id="{{$transaksi->id}}">
-                    <span class="icon text-white-50">
-                        <i class="fas fa-trash"></i>
-                    </span>
-                    <span class="text">Hapus</span>
-                  </button>
-                </td>
+                <td> {{ $produk->id_produk }}</td>
+                <td> {{ $produk->nama }}</td>
+                <td> {{ $produk->jumlah }}</td>
+                <td> {{ $produk->harga }}</td>
+                <td> {{ $produk->harga * $produk->jumlah }}</td>
             </tr>
+            <!-- {{$total += $produk->harga * $produk->jumlah}} -->
             @empty
             <tr>
                 <td>
@@ -71,36 +83,17 @@ Riwayat Transaksi Pembelian
             </tr>
             @endforelse
         </tbody>
+        <tfoot>
+          <tr>
+            <th colspan="5" style="text-align:end; border-right: none !important;">Total Harga: </th>
+            <th id="totalPrice" style="text-align:end">{{$total}}</th> <!-- Will be dynamically generated-->
+          </tr>
+        </tfoot> 
       </table>
     </div>
   </div>
 </div>
-
-
-<!-- Delete Confirmation Modal -->
-<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deleteModalLabel">Konfirmasi</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                Apakah Anda Yakin Ingin Menghapus Data Produk Ini?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
-                <form id="deleteForm" method="POST">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-danger">Hapus</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+<br>
 
 @endsection
 
@@ -110,6 +103,6 @@ Riwayat Transaksi Pembelian
     <script src="{{asset('vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
 
     <!-- Page level custom scripts -->
-    <script src="{{asset('js/demo/datatables-demo.js')}}"></script>
-    <script src="{{asset('js/daftarproduk.js')}}"></script>
+    <!-- <script src="{{asset('js/demo/datatables-demo.js')}}"></script> -->
+    <script src="{{asset('js/kasirpembelian.js')}}"></script>
 @endsection

@@ -74,6 +74,7 @@ Route::middleware(['auth', 'role:Pegawai'])->group(function () {
     Route::post('/simpan_penyediaan', [RPenyProdController::class, 'store'])->name('simpan.penyediaan');
 
     Route::get('/transaksi/pembelian/{id}', [TransaksiController::class, 'show'])->name('transaksi.show');
+    Route::delete('/transaksi/pembelian/{id}', [TransaksiController::class, 'destroy'])->name('transaksi.destroy');
 });
 
 
