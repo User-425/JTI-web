@@ -48,14 +48,14 @@ Kasir Restock
             <th>No</th>
             <th>ID Produk</th>
             <th>Nama</th>
-            <th>Harga</th>
             <th>Jumlah</th>
+            <th>Harga</th>
             <th>Aksi</th>
           </tr>
         </thead>    
         <tfoot>
           <tr>
-            <th colspan="6" style="text-align:end; border-right: none !important;">Total Harga: </th>
+            <th colspan="5" style="text-align:end; border-right: none !important;">Total Harga: </th>
             <th id="totalPrice" style="text-align:end">Rp0</th> <!-- Will be dynamically generated-->
           </tr>
         </tfoot> 
