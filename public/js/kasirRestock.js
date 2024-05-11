@@ -8,7 +8,7 @@ function addItemToTable(item) {
       '<td>' +
       '<input class="jumlah" value="1" type="number" min="1" data-id="' + tempItem.id + '"  onchange="updateQuantity(this)" oninput="validateQuantity(this)">' +
       '</td>' +
-      '<td>' +
+      '<td>' + 
       '<input class="harga" value="1" type="number" min="1" data-id="' + tempItem.id + '" onchange="updatePrice(this)" oninput="validateQuantity(this) updateTotalPrice()">' +
       '</td>' +
       '<td style="width:20%">' +

@@ -1,11 +1,19 @@
-$(document).on("input", ".jumlah", function () {
-  var harga = parseFloat($(this).data("harga"));
-  var jumlah = parseInt($(this).val());
-  var total = harga * jumlah;
+$(document).on("change", ".jumlah", function () {
+  var index = -1;
   var dataId = $(this).data("id");
-  
+  // Find the index of the item with the matching id
+  for (var i = 0; i < itemsToAdd.length; i++) {
+      if (itemsToAdd[i].id === dataId) {
+          index = i;
+          break;
+      }
+  }
+  var dataHarga = $(this).data("harga");
+  var harga = parseInt(dataHarga);
+  var jumlah = parseInt(itemsToAdd[index].quantity);
+  var total = (harga * jumlah).toLocaleString('id-ID');
   // Update the total value in the corresponding table cell
-  $('td.total[data-id="' + dataId + '"]').text(total);
+  $('td.total[data-id="' + dataId + '"]').text("Rp"+total);
   updateTotalPrice();
 });
 
@@ -16,11 +24,11 @@ function addItemToTable(item) {
       '<td class="text-center">' + index + '</td>' +
       '<td>' + tempItem.id_produk + '</td>' +
       '<td>' + tempItem.nama + '</td>' +
-      '<td>' + tempItem.harga + '</td>' +
+      '<td> Rp' + tempItem.harga.toLocaleString('id-ID') + '</td>' +
       '<td>' +
       '<input class="jumlah" value="1" type="number" min="1" data-id="' + tempItem.id + '" data-harga="' + tempItem.harga + '" onchange="updateQuantity(this)" oninput="validateQuantity(this)">' +
       '</td>' +
-      '<td class="total" data-id="' + tempItem.id + '">'+ tempItem.harga +'</td>' +
+      '<td class="total" data-id="' + tempItem.id + '">'+ 'Rp' + tempItem.harga.toLocaleString('id-ID') +'</td>' +
       '<td style="width:20%">' +
       '<button type="button" class="btn btn-danger btn-icon-split btn-sm removeItem" data-id="' + tempItem.id + '">' +
       '<span class="icon text-white-50">' +
@@ -134,12 +142,23 @@ $(document).on('click', '.removeItem', function() {
 // Update Total
 function updateTotalPrice() {
   var total = 0;
+
+  // Loop through each .total element
   $('.total').each(function() {
-      total += parseFloat($(this).text());
+      // Extract the numerical value and remove the currency symbol
+      var value = $(this).text().replace('Rp', '').replace(',', '');
+      // Parse the value as a float and add it to the total
+      total += parseFloat(value);
   });
+
+  // Format the total with proper thousand separators and currency symbol
+  var formattedTotal = 'Rp' + (total*1000).toLocaleString('id-ID');
+
   // Update the content of the total price element
-  $('#totalPrice').text('Rp' + total.toFixed(2));
+  $('#totalPrice').text(formattedTotal);
 }
+
+
 
 
 // Function to update index column
