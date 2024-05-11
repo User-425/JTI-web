@@ -85,7 +85,7 @@ Kelola Pengguna
                 </button>
             </div>
             <div class="modal-body">
-                Apakah Anda Yakin Ingin Menghapus Data Produk Ini?
+                Apakah Anda Yakin Ingin Menghapus Data Pengguna Ini?
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
