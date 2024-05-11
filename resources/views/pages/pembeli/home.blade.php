@@ -4,6 +4,11 @@
 Dashboard
 @endsection
 
+@section('page_css')
+<!-- Custom styles for this page -->
+<link href="{{asset('vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
+@endsection
+
 @section('content')
 <div class="card shadow mb-4">
 <div class="card-header py-3 d-flex justify-content-between align-items-center">
