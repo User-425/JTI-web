@@ -76,8 +76,11 @@ class PenyediaanController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Penyediaan $penyediaan)
+    public function destroy($id)
     {
-        //
+        $transaksi = Penyediaan::find($id);
+        $transaksi->delete();
+
+        return redirect('/transaksi/penyediaan');
     }
 }

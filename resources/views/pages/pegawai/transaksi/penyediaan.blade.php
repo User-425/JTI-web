@@ -63,7 +63,7 @@ Riwayat Transaksi Penyediaan
             </tr>
             @empty
             <tr>
-                <td>
+                <td colspan="6">
                     Data Kosong
                 </td>
             </tr>
@@ -109,5 +109,5 @@ Riwayat Transaksi Penyediaan
 
     <!-- Page level custom scripts -->
     <script src="{{asset('js/demo/datatables-demo.js')}}"></script>
-    <script src="{{asset('js/daftartransaksi.js')}}"></script>
+    <script src="{{asset('js/daftarpenyediaan.js')}}"></script>
 @endsection
