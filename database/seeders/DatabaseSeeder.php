@@ -15,8 +15,9 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
 
-        // $this->call(DatabaseSeeder2::class);
-        $this->call(DatabaseSeeder3::class);
+        $this->call(UserSeeder::class);
+        $this->call(ProdukSeeder::class);
+        $this->call(TransactionSeeder::class);
 
         DB::table('users')->insert([
             'name' => 'Anfasa',
@@ -42,7 +43,7 @@ class DatabaseSeeder extends Seeder
         DB::table('pembelis')->insert([
             'id_pembeli' => '1001',
             'nama' => 'Aakhif',
-            'id_user' => '2',
+            'id_user' => '7',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
@@ -52,7 +53,7 @@ class DatabaseSeeder extends Seeder
             'id_pegawai' => '2001',
             'no_telp' => '085706772202',
             'alamat' => 'Gresik',
-            'id_user' => '1',
+            'id_user' => '6',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
