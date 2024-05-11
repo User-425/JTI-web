@@ -50,7 +50,7 @@ Daftar Produk
                 <td class="text-center"> {{$loop->index + 1}}</td>
                 <td> {{ $produk->id_produk }}</td>
                 <td> {{ $produk->nama }}</td>
-                <td> {{ $produk->harga }}</td>
+                <td> Rp{{ number_format($produk->harga) }}</td>
                 <td> {{ $produk->stok }}</td>
                 <td style="width:20%">
                   <a href="{{ route('produk.show', $produk->id)}}" class="btn btn-primary btn-icon-split btn-sm">
