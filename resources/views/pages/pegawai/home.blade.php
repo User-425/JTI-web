@@ -110,7 +110,7 @@ Dashboard
             </div>
         </div>
     </div>
-    <div class="col-xl-5 col-lg-7">
+    <div class="col-xl-8 col-lg-7">
         <div class="card shadow mb-7">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">Pembelian Terkini</h6>
