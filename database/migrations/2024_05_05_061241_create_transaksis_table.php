@@ -12,13 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('transaksis', function (Blueprint $table) {
-            $table->id();
+            $startId = 107;
+            $table->bigIncrements('id')->startingValue($startId);
             // $table->String('id_transaksi', 10) -> unique;
             $table->enum('jenis', ['Tunai', 'Non-Tunai'])-> default ('tunai');
             $table->timestamp('waktu');
             $table->String('id_pegawai', 10);
             $table->String('id_pembeli', 10);
             $table->timestamps();
+
+            
         });
     }
 
