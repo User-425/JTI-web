@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pembeli;
 use App\Models\Pegawai;
 use App\Models\Produk; // Menggunakan Model Produk
 use App\Models\User; // Menggunakan Model User
+use App\Models\RTransProd; // Menggunakan Model User
+use App\Models\Transaksi;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class PegawaiController extends Controller
 {
@@ -94,6 +99,80 @@ class PegawaiController extends Controller
         //
     }
 
+    /**
+     * Show the form for creating a new resource.
+     */
+
+     public function dashboard()
+     {
+         // Get the current month, year, and week
+         $currentMonth = Carbon::now()->month;
+         $currentYear = Carbon::now()->year;
+         $currentWeek = Carbon::now()->weekOfYear;
+     
+         // Get transactions for the current month, year, and week
+         $transaksiThisMonth = Transaksi::whereYear('waktu', $currentYear)
+             ->whereMonth('waktu', $currentMonth)
+             ->with('items.product')
+             ->get();
+     
+         $transaksiThisWeek = Transaksi::whereYear('waktu', $currentYear)
+             ->where('waktu', '>=', Carbon::now()->startOfWeek())
+             ->with('items.product')
+             ->get();
+     
+         // Calculate total selling for the current month
+         $totalSellingThisMonth = $transaksiThisMonth->sum(function ($transaksi) {
+             return $transaksi->items->sum(function ($item) {
+                 return $item->jumlah * $item->product->harga;
+             });
+         });
+     
+         // Calculate total selling for the current week
+         $totalSellingThisWeek = $transaksiThisWeek->sum(function ($transaksi) {
+             return $transaksi->items->sum(function ($item) {
+                 return $item->jumlah * $item->product->harga;
+             });
+         });
+     
+         // Get the 5 most recent transactions
+         $recentTransactions = Transaksi::with('items.product')
+         ->orderBy('waktu', 'desc')
+         ->limit(5)
+         ->get()
+         ->map(function ($transaction) {
+             $transaction->pegawaiName = Pegawai::where('id_pegawai', $transaction->id_pegawai)->firstOrFail()->nama;
+             $transaction->pembeliName = Pembeli::where('id_pembeli', $transaction->id_pembeli)->firstOrFail()->nama;
+ 
+             $transaction->items->map(function ($item) {
+                 $product = Produk::findOrFail($item->id_produk);
+                 $item->nama = $product->nama; // Assuming the name attribute in the Produk model is 'name'
+                 return $item;
+             });
+ 
+             return $transaction;
+         });
+     
+         $bestSellerThisMonth = DB::table('r_trans_prods')
+             ->join('transaksis', 'r_trans_prods.id_transaksi', '=', 'transaksis.id')
+             ->join('produks', 'r_trans_prods.id_produk', '=', 'produks.id')
+             ->select('produks.nama', DB::raw('SUM(r_trans_prods.jumlah) as total_quantity'))
+             ->whereYear('transaksis.created_at', $currentYear)
+             ->whereMonth('transaksis.created_at', $currentMonth)
+             ->groupBy('produks.nama')
+             ->orderByDesc('total_quantity')
+             ->first();
+     
+         $bestSellerName = $bestSellerThisMonth ? htmlspecialchars($bestSellerThisMonth->nama) : '';
+     
+         return view('pages.pegawai.home', [
+             'totalSellingThisMonth' => number_format($totalSellingThisMonth),
+             'totalSellingThisWeek' => number_format($totalSellingThisWeek),
+             'bestSellerThisMonth' => $bestSellerName,
+             'recentTransactions' => $recentTransactions,
+         ]);
+     }     
+    
     public function pengguna_index(){
         
         $data = User::all();

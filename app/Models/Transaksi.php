@@ -22,4 +22,9 @@ class Transaksi extends Model
     {
         return $this->belongsTo(Pegawai::class, 'id_pegawai', 'id_pegawai');
     }
+
+    public function items()
+    {
+        return $this->hasMany(RTransProd::class, 'id_transaksi');
+    }
 }

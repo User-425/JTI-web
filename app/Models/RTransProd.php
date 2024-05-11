@@ -22,4 +22,9 @@ class RTransProd extends Model
     {
         return $this->belongsTo(Transaksi::class, 'id_transaksi', 'id_transaksi');
     }
+
+    public function product()
+    {
+        return $this->belongsTo(Produk::class, 'id_produk');
+    }
 }
