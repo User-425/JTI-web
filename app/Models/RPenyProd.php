@@ -23,4 +23,5 @@ class RPenyProd extends Model
         return $this->belongsTo(Penyediaan::class, 'id_penyediaan', 'id_penyediaan');
     }
     
+    
 }
