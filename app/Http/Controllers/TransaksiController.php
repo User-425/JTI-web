@@ -57,7 +57,23 @@ class TransaksiController extends Controller
         return view('pages.pegawai.transaksi.detail_pembelian', compact('transaksi', 'items'));
     }
     
+    public function show_pembeli($id)
+    {
+        // Fetch the transaction details
+        $transaksi = Transaksi::findOrFail($id);
+        $transaksi->pegawaiName = Pegawai::where('id_pegawai', $transaksi->id_pegawai)->firstOrFail()->nama;
+        $transaksi->pembeliName = Pembeli::where('id_pembeli', $transaksi->id_pembeli)->firstOrFail()->nama;
+
+        // Fetch associated products for the transaction with their names
+        $items = RTransProd::where('id_transaksi', $id)->get();
+        foreach ($items as $item) {
+            $product = Produk::findOrFail($item->id_produk);
+            $item->nama = $product->nama; // Assuming the name attribute in the Produk model is 'name'
+        }
     
+        // Pass the transaction and associated products to the view
+        return view('pages.pembeli.detail_pembelian', compact('transaksi', 'items'));
+    }
 
     /**
      * Show the form for editing the specified resource.

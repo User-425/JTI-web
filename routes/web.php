@@ -84,5 +84,6 @@ Route::middleware(['auth', 'role:Pegawai'])->group(function () {
 
 Route::middleware(['auth', 'role:Pembeli'])->group(function () {
     Route::get('/pembeli/dashboard', [PembeliController::class, 'show'])->name('pembeli.dashboard');
-    ;
+    Route::get('/pembeli/transaksi', [PembeliController::class, 'riwayat_pembelian'])->name('pembeli.riwayat_pembelian');
+    Route::get('/pembeli/transaksi/{id}', [TransaksiController::class, 'show_pembeli'])->name('transaksi.show_pembeli');
 });
