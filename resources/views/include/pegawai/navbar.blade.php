@@ -50,11 +50,11 @@ class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 
         <!-- Dropdown - User Information -->
         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
             aria-labelledby="userDropdown">
-            <a class="dropdown-item" href="#">
+            <!-- <a class="dropdown-item" href="#">
                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                 Profile
             </a>
-            <div class="dropdown-divider"></div>
+            <div class="dropdown-divider"></div> -->
             <form action="{{ route('logout') }}" method="POST">
                 @csrf
                 <button class="dropdown-item" type="submit">
