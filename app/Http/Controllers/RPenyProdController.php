@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 use App\Models\Penyediaan;
+use App\Models\Produk;
 use App\Models\RPenyProd;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class RPenyProdController extends Controller
 {
@@ -37,28 +39,47 @@ class RPenyProdController extends Controller
             'items.*.price' => 'required|integer|min:1',
         ]);
     
-        // Create transaction
-        $penyediaan =Penyediaan::create([
-            'waktu' => now(),
-            'id_pegawai' => $validatedData['id_pegawai'],
-            'id_pemasok' => $validatedData['id_pemasok'],
-        ]);
+        // Begin transaction
+        DB::beginTransaction();
     
-        // Get the ID of the created transaction
-        $penyediaanId = $penyediaan->id;
-    
-        // Associate products with the transaction in RTransProd table
-        foreach ($validatedData['items'] as $item) {
-            RPenyProd::create([
-                'id_produk' => $item['id'],
-                'id_penyediaan' => $penyediaanId,
-                'jumlah' => $item['quantity'],
-                'harga' => $item['price'],
+        try {
+            // Create transaction
+            $penyediaan = Penyediaan::create([
+                'waktu' => now(),
+                'id_pegawai' => $validatedData['id_pegawai'],
+                'id_pemasok' => $validatedData['id_pemasok'],
             ]);
-        }
     
-        return response()->json(['message' => 'Transaction created successfully'], 201);
+            // Get the ID of the created transaction
+            $penyediaanId = $penyediaan->id;
+    
+            // Update stock for each product
+            foreach ($validatedData['items'] as $item) {
+                $product = Produk::where('id', $item['id'])->firstOrFail();
+    
+                $product->stok += $item['quantity']; // Add the quantity to the stock
+                $product->save();
+    
+                // Create the association
+                RPenyProd::create([
+                    'id_produk' => $item['id'],
+                    'id_penyediaan' => $penyediaanId,
+                    'jumlah' => $item['quantity'],
+                    'harga' => $item['price'],
+                ]);
+            }
+    
+            // Commit the transaction
+            DB::commit();
+    
+            return response()->json(['message' => 'Transaction created successfully'], 201);
+        } catch (\Exception $e) {
+            // Rollback the transaction if an error occurs
+            DB::rollback();
+            return response()->json(['error' => $e->getMessage()], 400);
+        }
     }
+    
 
     /**
      * Display the specified resource.
