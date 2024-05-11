@@ -9,7 +9,7 @@ function addItemToTable(item) {
       '<input class="jumlah" value="1" type="number" min="1" data-id="' + tempItem.id + '"  onchange="updateQuantity(this)" oninput="validateQuantity(this)">' +
       '</td>' +
       '<td>' +
-      '<input class="harga" value="1" type="number" min="1" data-id="' + tempItem.id + '" onchange="updatePrice(this)" oninput="validateQuantity(this)">' +
+      '<input class="harga" value="1" type="number" min="1" data-id="' + tempItem.id + '" onchange="updatePrice(this)" oninput="validateQuantity(this) updateTotalPrice()">' +
       '</td>' +
       '<td style="width:20%">' +
       '<button type="button" class="btn btn-danger btn-icon-split btn-sm removeItem" data-id="' + tempItem.id + '">' +
@@ -70,10 +70,12 @@ $("#storeTransaction").on("click", function () {
       id_pegawai: id_pegawai,
     },
     success: function (response) {
+      alertify.success('Data Tersimpan!');
       console.log("Data Terkirim!");
       console.log(response);
     },
     error: function (xhr) {
+      alertify.error('Data Gagal Tersimpan!');
       console.log("Data Gagal Terkirim!");
       console.error(xhr);
     },
@@ -96,13 +98,14 @@ $(document).on('click', '.removeItem', function() {
 
 // Update Total
 function updateTotalPrice() {
-  var total = 0;
-  $('.total').each(function() {
-      total += parseFloat($(this).text());
+  let totalPrice = 0;
+  itemsToAdd.forEach(item => {
+    totalPrice += item.price;
   });
-  // Update the content of the total price element
-  $('#totalPrice').text('Rp' + total.toFixed(2));
+  const formattedPrice = totalPrice.toLocaleString();
+  $('#totalPrice').text("Rp"+formattedPrice);
 }
+
 
 function updateQuantity(input) {
   var id = $(input).data('id');
