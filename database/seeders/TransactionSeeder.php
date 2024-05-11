@@ -80,10 +80,14 @@ class TransactionSeeder extends Seeder
         }
     }
     
-    // Helper function to generate random datetime within a given range
-    private function generateRandomDateTime($start, $end)
-    {
-        $randomTimestamp = mt_rand($start->timestamp, $end->timestamp);
-        return \Carbon\Carbon::createFromTimestamp($randomTimestamp);
-    }    
+
+// Helper function to generate random datetime within a given range
+private function generateRandomDateTime($start, $end)
+{
+    $startTimestamp = $start->timestamp;
+    $currentTimestamp = now()->timestamp;
+    $randomTimestamp = mt_rand($startTimestamp, min($currentTimestamp, $end->timestamp)); // Limit the upper bound to current time
+    return \Carbon\Carbon::createFromTimestamp($randomTimestamp);
+}
+
 }
