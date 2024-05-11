@@ -86,7 +86,7 @@ Detail Pembelian
         <tfoot>
           <tr>
             <th colspan="5" style="text-align:end; border-right: none !important;">Total Harga: </th>
-            <th id="totalPrice" style="text-align:end">{{$total}}</th> <!-- Will be dynamically generated-->
+            <th id="totalPrice" style="text-align:end">Rp{{$total}}</th> <!-- Will be dynamically generated-->
           </tr>
         </tfoot> 
       </table>

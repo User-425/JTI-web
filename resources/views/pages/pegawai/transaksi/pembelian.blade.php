@@ -53,13 +53,13 @@ Riwayat Transaksi Pembelian
                       <span class="icon text-white-50">
                           <i class="fas fa-eye"></i>
                       </span>
-                      <span class="text">Lihat</span>
+                      <!-- <span class="text">Lihat</span> -->
                   </a>
                   <button type="button" class="btn btn-danger btn-icon-split btn-sm" data-toggle="modal" data-target="#deleteModal" data-id="{{$transaksi->id}}">
                     <span class="icon text-white-50">
                         <i class="fas fa-trash"></i>
                     </span>
-                    <span class="text">Hapus</span>
+                    <!-- <span class="text">Hapus</span> -->
                   </button>
                 </td>
             </tr>

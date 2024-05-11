@@ -71,36 +71,51 @@ $('.btn-add-item').on('click', function() {
   }
 });
 
-// Event listener for storing transaction
 $("#storeTransaction").on("click", function () {
   var id_pembeli = $("#id_pembeli").val();
   var jenis = $("#jenis").val();
   var csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+  // Check if the stock is sufficient for each item
+  var stockSufficient = true;
+  itemsToAdd.forEach(function(item) {
+      if (item.quantity > item.stok) {
+          stockSufficient = false;
+          return false; // Exit the loop early if stock is insufficient
+      }
+  });
+
+  if (!stockSufficient) {
+      alert("Stok produk tidak mencukupi!");
+      return; // Exit the function if stock is insufficient
+  }
+
   // Send itemsToAdd array to the controller using AJAX
   $.ajax({
-    url: "/simpan_transaksi",
-    type: "POST",
-    headers: {
-      'X-CSRF-TOKEN': csrfToken
-    },
-    data: {
-      id_pembeli: id_pembeli,
-      jenis: jenis,
-      items: itemsToAdd,
-      id_pegawai: id_pegawai,
-    },
-    success: function (response) {
-      alertify.success('Data Tersimpan!');
-      console.log("Data Tersimpan!");
-      console.log(response);
-    },
-    error: function (xhr) {
-      alertify.error('Data Gagal Tersimpan!');
-      console.log("Data Gagal Tersimpan!");
-      console.error(xhr);
-    },
+      url: "/simpan_transaksi",
+      type: "POST",
+      headers: {
+          'X-CSRF-TOKEN': csrfToken
+      },
+      data: {
+          id_pembeli: id_pembeli,
+          jenis: jenis,
+          items: itemsToAdd,
+          id_pegawai: id_pegawai,
+      },
+      success: function (response) {
+          alertify.success('Data Tersimpan!');
+          console.log("Data Tersimpan!");
+          console.log(response);
+      },
+      error: function (xhr) {
+          alertify.error('Data Gagal Tersimpan!');
+          console.log("Data Gagal Tersimpan!");
+          console.error(xhr);
+      },
   });
 });
+
 // });
 
 // Event listener for removing item
