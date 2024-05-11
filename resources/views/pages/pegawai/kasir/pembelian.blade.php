@@ -69,6 +69,7 @@ Kasir Pembelian
           </tr>
         </tfoot> 
         <tbody>
+
           <!-- This will be dynamically loaded -->
             <!-- @forelse ($data as $produk)
             <tr>
@@ -175,6 +176,6 @@ Kasir Pembelian
     <script src="{{asset('vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
 
     <!-- Page level custom scripts -->
-    <!-- <script src="{{asset('js/demo/datatables-demo.js')}}"></script> -->
+    <script src="{{asset('js/demo/datatables-demo.js')}}"></script>
     <script src="{{asset('js/kasirpembelian.js')}}"></script>
 @endsection

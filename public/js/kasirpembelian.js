@@ -157,16 +157,6 @@ function validateQuantity(input) {
 
 ////////////////////// Data Table //////////////////////
 // $(document).ready(function () {
-  var t = $("#dataTable").DataTable({
-    columnDefs: [
-      {
-        targets: [0], // Targeting the first column (index column)
-        orderable: false, // Disable sorting for this column
-        searchable: false,
-      },
-    ],
-    order: [[1, "asc"]],
-  });
   
   var t = $("#produkTable").DataTable({
     columnDefs: [
@@ -194,3 +184,4 @@ t.on("draw.dt", function () {
       cell.innerHTML = i + 1 + PageInfo.start;
     }); 
 });
+
