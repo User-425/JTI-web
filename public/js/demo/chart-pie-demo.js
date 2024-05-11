@@ -2,16 +2,37 @@
 Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 Chart.defaults.global.defaultFontColor = '#858796';
 
+var itemNames = itemsSelling.map(item => item.name);
+var soldQuantities = itemsSelling.map(item => item.sold);
+
+function generateColors(quantityArray) {
+  var colors = [];
+  var maxQuantity = Math.max(...quantityArray);
+  var minQuantity = Math.min(...quantityArray);
+  var colorStep = (maxQuantity - minQuantity) / quantityArray.length;
+
+  for (var i = 0; i < quantityArray.length; i++) {
+      var normalizedValue = (quantityArray[i] - minQuantity) / (maxQuantity - minQuantity);
+      var red = Math.round(255 * normalizedValue);
+      var green = Math.round(255 * (1 - normalizedValue));
+      var blue = 0;
+      colors.push(`rgb(${red},${green},${blue})`);
+  }
+  return colors;
+}
+
+var backgroundColors = ['#4e73df', '#1cc88a', '#36b9cc', '#FF5733', '#33FF57', '#5733FF', '#FF33E1', '#33FFE8'];
+
 // Pie Chart Example
 var ctx = document.getElementById("myPieChart");
 var myPieChart = new Chart(ctx, {
   type: 'doughnut',
   data: {
-    labels: ["Direct", "Referral", "Social"],
+    labels: itemNames,
     datasets: [{
-      data: [55, 30, 15],
-      backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc'],
-      hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf'],
+      data: soldQuantities,
+      backgroundColor: backgroundColors,
+      hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf','#FF954E', '#4EFF95', '#954EFF', '#FF4EE2', '#4EFFEC' ],
       hoverBorderColor: "rgba(234, 236, 244, 1)",
     }],
   },
@@ -33,3 +54,19 @@ var myPieChart = new Chart(ctx, {
     cutoutPercentage: 80,
   },
 });
+
+// Generate legend HTML dynamically
+var legendHTML = "";
+for (var i = 0; i < itemNames.length; i++) {
+    legendHTML += `
+        <span class="mr-2">
+            <i class="fas fa-circle" style="color:${backgroundColors[i]}"></i> ${itemNames[i]}
+        </span>
+    `;
+}
+
+// Set legend HTML
+var legendContainer = document.getElementById("legendContainer");
+if (legendContainer) {
+    legendContainer.innerHTML = legendHTML;
+}

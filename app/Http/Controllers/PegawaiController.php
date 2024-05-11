@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Pembeli;
 use App\Models\Pegawai;
-use App\Models\Produk; // Menggunakan Model Produk
-use App\Models\User; // Menggunakan Model User
-use App\Models\RTransProd; // Menggunakan Model User
+use App\Models\Produk; 
+use App\Models\User;
+use App\Models\RPenyProd;
 use App\Models\Transaksi;
+use App\Models\Penyediaan;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -127,14 +128,25 @@ class PegawaiController extends Controller
                  return $item->jumlah * $item->product->harga;
              });
          });
-     
+
          // Calculate total selling for the current week
          $totalSellingThisWeek = $transaksiThisWeek->sum(function ($transaksi) {
              return $transaksi->items->sum(function ($item) {
                  return $item->jumlah * $item->product->harga;
              });
          });
-     
+
+         $penyediaanThisMonth = Penyediaan::whereYear('waktu', $currentYear)
+        ->whereMonth('waktu', $currentMonth)
+        ->with('items') // Assuming you have a relationship named 'items'
+        ->get();
+
+        $totalExpensesThisMonth = $penyediaanThisMonth->sum(function ($penyediaan) {
+            return $penyediaan->items->sum(function ($item) {
+                return $item->harga;
+            });
+        });
+
          // Get the 5 most recent transactions
          $recentTransactions = Transaksi::with('items.product')
          ->orderBy('waktu', 'desc')
@@ -152,13 +164,22 @@ class PegawaiController extends Controller
  
              return $transaction;
          });
+
+         $items = DB::table('r_trans_prods')
+         ->join('transaksis', 'r_trans_prods.id_transaksi', '=', 'transaksis.id')
+         ->join('produks', 'r_trans_prods.id_produk', '=', 'produks.id')
+         ->select('produks.nama as name', DB::raw('SUM(r_trans_prods.jumlah) as sold'))
+         ->whereYear('transaksis.waktu', $currentYear)
+         ->whereMonth('transaksis.waktu', $currentMonth)
+         ->groupBy('produks.nama')
+         ->get();
      
          $bestSellerThisMonth = DB::table('r_trans_prods')
              ->join('transaksis', 'r_trans_prods.id_transaksi', '=', 'transaksis.id')
              ->join('produks', 'r_trans_prods.id_produk', '=', 'produks.id')
              ->select('produks.nama', DB::raw('SUM(r_trans_prods.jumlah) as total_quantity'))
-             ->whereYear('transaksis.created_at', $currentYear)
-             ->whereMonth('transaksis.created_at', $currentMonth)
+             ->whereYear('transaksis.waktu', $currentYear)
+             ->whereMonth('transaksis.waktu', $currentMonth)
              ->groupBy('produks.nama')
              ->orderByDesc('total_quantity')
              ->first();
@@ -166,10 +187,12 @@ class PegawaiController extends Controller
          $bestSellerName = $bestSellerThisMonth ? htmlspecialchars($bestSellerThisMonth->nama) : '';
      
          return view('pages.pegawai.home', [
+             'totalExpensesThisMonth' => number_format($totalExpensesThisMonth),
              'totalSellingThisMonth' => number_format($totalSellingThisMonth),
              'totalSellingThisWeek' => number_format($totalSellingThisWeek),
              'bestSellerThisMonth' => $bestSellerName,
              'recentTransactions' => $recentTransactions,
+             'items' => $items->toJson(),
          ]);
      }     
     
