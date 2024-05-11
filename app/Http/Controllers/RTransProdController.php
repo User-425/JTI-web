@@ -40,33 +40,53 @@ class RTransProdController extends Controller
             'items.*.quantity' => 'required|integer|min:1',
         ]);
     
-        // Create transaction
-        $transaksi = Transaksi::create([
-            'jenis' => $validatedData['jenis'],
-            'waktu' => now(),
-            'id_pegawai' => $validatedData['id_pegawai'],
-            'id_pembeli' => $validatedData['id_pembeli'],
-        ]);
+        // Begin transaction
+        DB::beginTransaction();
     
-        // Get the ID of the created transaction
-        $transaksiId = $transaksi->id;
-    
-        // Associate products with the transaction in RTransProd table
-        foreach ($validatedData['items'] as $item) {
-            $product = Produk::where('id', $item['id'])->firstOrFail();
-            $item['price'] = $product->harga;
-            RTransProd::create([
-                'id_produk' => $item['id'],
-                'id_transaksi' => $transaksiId,
-                'jumlah' => $item['quantity'],
-                'harga' => $item['price'],
+        try {
+            // Create transaction
+            $transaksi = Transaksi::create([
+                'jenis' => $validatedData['jenis'],
+                'waktu' => now(),
+                'id_pegawai' => $validatedData['id_pegawai'],
+                'id_pembeli' => $validatedData['id_pembeli'],
             ]);
-        }
     
-        return response()->json(['message' => 'Transaction created successfully'], 201);
+            // Get the ID of the created transaction
+            $transaksiId = $transaksi->id;
+    
+            // Update stock for each product
+            foreach ($validatedData['items'] as $item) {
+                $product = Produk::where('id', $item['id'])->firstOrFail();
+    
+                // Check if the requested quantity is available
+                if ($product->stok < $item['quantity']) {
+                    throw new \Exception('Insufficient stock for product ' . $product->id);
+                }
+    
+                $product->stok -= $item['quantity'];
+                $product->save();
+    
+                // Create the association
+                RTransProd::create([
+                    'id_produk' => $item['id'],
+                    'id_transaksi' => $transaksiId,
+                    'jumlah' => $item['quantity'],
+                    'harga' => $product->harga, // Use the product's price
+                ]);
+            }
+    
+            // Commit the transaction
+            DB::commit();
+    
+            return response()->json(['message' => 'Transaction created successfully'], 201);
+        } catch (\Exception $e) {
+            // Rollback the transaction if an error occurs
+            DB::rollback();
+            return response()->json(['error' => $e->getMessage()], 400);
+        }
     }
-        
-     
+         
 
     /**
      * Display the specified resource.
