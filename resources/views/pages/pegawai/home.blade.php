@@ -126,8 +126,8 @@ Dashboard
                     </div>
                     <div class="col-md-6 text-md-right">
                         <div class="transaction-details">
-                            <span class="price">Total:
-                                @php
+                            <span class="price">Total: 
+                                Rp@php
                                 $totalPrice = 0;
                                 foreach ($transaction->items as $item) {
                                 $totalPrice += $item->jumlah * $item->product->harga;

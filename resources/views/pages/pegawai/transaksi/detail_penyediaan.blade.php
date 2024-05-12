@@ -80,7 +80,7 @@ Detail Pembelian
         <tfoot>
           <tr>
             <th colspan="4" style="text-align:end; border-right: none !important;">Total Harga: </th>
-            <th id="totalPrice" style="text-align:end">Rp{{number_format($total)}}</th> <!-- Will be dynamically generated-->
+            <th id="totalPrice" style="text-align:end">Rp{{number_format($totals)}}</th> <!-- Will be dynamically generated-->
           </tr>
         </tfoot> 
       </table>

@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('pembelis', function (Blueprint $table) {
             $table->id();
-            $table->string('id_pembeli', 10)->unique();
+            $table->unsignedBigInteger('id_pembeli')->unique();
             $table->text('nama');
             $table->unsignedBigInteger('id_user');
             $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
-        });
+        });        
     }
 
     /**

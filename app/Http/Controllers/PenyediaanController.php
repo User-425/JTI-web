@@ -45,16 +45,17 @@ class PenyediaanController extends Controller
         $penyediaan = Penyediaan::findOrFail($id);
         $penyediaan->pegawaiName = Pegawai::where('id_pegawai', $penyediaan->id_pegawai)->firstOrFail()->nama;
         $penyediaan->pemasokName = Pemasok::where('id_pemasok', $penyediaan->id_pemasok)->firstOrFail()->nama;
-
+        $totals = 0;
         // Fetch associated products for the transaction with their names
         $items = RPenyProd::where('id_penyediaan', $id)->get();
         foreach ($items as $item) {
             $product = Produk::findOrFail($item->id_produk);
             $item->nama = $product->nama;
+            $totals = $totals + $item->harga;
         }
     
         // Pass the transaction and associated products to the view
-        return view('pages.pegawai.transaksi.detail_penyediaan', compact('penyediaan', 'items'));
+        return view('pages.pegawai.transaksi.detail_penyediaan', compact('penyediaan', 'items','totals'));
     }
 
     /**

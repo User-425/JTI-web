@@ -1,1 +1,11 @@
-use App\Models\Produk;
+stok tidak berkurang ketika ada pembelian FIXED
+seeder kelebihan FIXED
+dasboard kurang
+    recent transaction can't be clicked FIXED
+
+Anjing KIDNA FIXED
+total harga di restock udah
+
+Protection buat id pembeli / restocker yg ga ada
+
+DELETE DI PENYEDIAAN

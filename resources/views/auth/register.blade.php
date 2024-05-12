@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('title')
+Register
+@endsection
+
 @section('content')
 <div class="card o-hidden border-0 shadow-lg my-5">
             <div class="card-body p-0">
@@ -15,11 +19,11 @@
                               @csrf
                                 <div class="form-group">
                                     
-                                    <input id="name" type="text" class="form-control form-control-user @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus placeholder='Name'>
+                                    <input id="name" type="text" class="form-control form-control-user @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autofocus placeholder='Name' autocomplete="off">
                               
                                 </div>
                                 <div class="form-group">
-                                <input id="email" type="email" class="form-control form-control-user @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="Email">
+                                <input id="email" type="email" class="form-control form-control-user @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="off" placeholder="Email">
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
